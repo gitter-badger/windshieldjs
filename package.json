@@ -10,6 +10,10 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "^8.6.1",
-    "handlebars": "^3.0.3"
+    "handlebars": "^3.0.3",
+    "lodash": "^3.10.0",
+    "request-promise": "^0.4.2",
+    "bluebird": "^2.9.30",
+    "minimist": "^1.1.1"
   }
 }
