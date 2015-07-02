@@ -89,7 +89,8 @@ function getAssetsFromRefs(assetRefsArray) {
 }
 
 function findAssetAssociations(associationData) {
-    return _.findWhere(associationData, { name: 'assets' }).associatedAsset || [];
+    var assetsData = _.findWhere(associationData, { name: 'assets' });
+    return (typeof assetsData === 'object') ? assetsData.associatedAsset || [] : [];
 }
 
 function transformAttributes (attr) {
@@ -98,6 +99,7 @@ function transformAttributes (attr) {
         if (v.data) {
             if (v.data.stringValue) r[v.name] = v.data.stringValue;
             if (v.data.longValue) r[v.name] = v.data.longValue;
+            if (v.data.listValue) r[v.name] = v.data.listValue;
             if (v.data.webreferenceList) r[v.name] = v.data.webreferenceList;
         }
     });
@@ -106,7 +108,6 @@ function transformAttributes (attr) {
 
 function parseAssetData(data) {
     var parsed = {};
-    console.log(data);
     parsed.id = data.id;
     parsed.name = data.name;
     parsed.createdby = data.createdby;
@@ -116,7 +117,7 @@ function parseAssetData(data) {
     parsed.updatedby = data.updatedby;
     parsed.updateddate = data.updateddate;
     parsed.attributes = transformAttributes(data.attribute);
-    parsed.associatedAssets = findAssetAssociations(data.associations.association);
+    parsed.associatedAssets = (data.associations) ? findAssetAssociations(data.associations.association) : [];
     return parsed;
 }
 

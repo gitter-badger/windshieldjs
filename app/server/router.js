@@ -25,7 +25,7 @@ module.exports = function (server) {
                 var parsed = owcs.parseAssetData(data),
                     associatedAssetsPromise = owcs.getAssetsFromRefs(parsed.associatedAssets);
                 associatedAssetsPromise.then(function (assetsData) {
-                    parsed.associatedAssetsData = assetsData;
+                    parsed.associatedAssetsData = _.map(assetsData, owcs.parseAssetData);
                     reply(parsed);
                 });
                 associatedAssetsPromise.catch(console.log);
