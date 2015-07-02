@@ -68,28 +68,38 @@ function getAsset(assetType, assetId) {
     });
 }
 
-// @WIP
-// we need a general parse data / clean up data function that pulls out the
-// following fields and cleans them up....
-//
-// id, name, createdby, createddate, description, subtype, updatedby,
-// updateddate, attribute (flatten this!)
-function parseAssetData(data) {
-    var parsed = _.filter(data, function (v, k) {
-        return !!~['id', 'name', 'createdby', 'createddate', 'description', 'subtype', 'updatedby', 'updateddate', 'attribute'].indexOf(k);
-    });
-    parsed.attributes = _.transform(data.attribute, function (r, v, k) {
+function findAssetAssociations(assoc) {
+    return _.findWhere(assoc, { name: 'assets' }).associatedAsset;
+}
+
+function transformAttributes (attr) {
+    var r = {};
+    _.forEach(attr, function (v) {
         r[v.name] = v.data;
     });
+    return r;
+}
+
+function parseAssetData(data) {
+    var parsed = {};
+    parsed.id = data.id;
+    parsed.name = data.name;
+    parsed.createdby = data.createdby;
+    parsed.createddate = data.createddate;
+    parsed.description = data.description;
+    parsed.subtype = data.subtype;
+    parsed.updatedby = data.updatedby;
+    parsed.updateddate = data.updateddate;
+    parsed.attributes = transformAttributes(data.attribute);
+    parsed.associatedAssets = findAssetAssociations(data.associations.association);
     return parsed;
 }
 
-function findAssetAssociations(data) {
-    return _.findWhere(data.associations.association, { name: 'assets' }).associatedAsset;
-}
 
 module.exports = {
     getAsset: getAsset,
     authenticate: authenticate,
-    findAssetAssociations: findAssetAssociations
+    findAssetAssociations: findAssetAssociations,
+    transformAttributes: transformAttributes,
+    parseAssetData: parseAssetData
 };

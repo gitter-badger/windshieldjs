@@ -22,7 +22,7 @@ module.exports = function (server) {
                 id = req.params.id,
                 assetPromise = owcs.getAsset(type, id);
             assetPromise.then(function (data) {
-                reply(owcs.findAssetAssociations(data));
+                reply(owcs.parseAssetData(data));
             });
             assetPromise.catch(console.log);
         }
