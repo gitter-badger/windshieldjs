@@ -19,14 +19,12 @@ module.exports = function (server) {
         path: '/asset/{type}/{id}',
         handler: function (req, reply) {
             var type = req.params.type,
-                id = req.params.id,
-                assetPromise = owcs.getAssetWithAssociated({ type: type, id: id });
+                id = req.params.id;
 
-            assetPromise.then(function (data) {
+            owcs.getAssetWithAssociated({ type: type, id: id }).then(function (data) {
                 reply(data);
-            });
+            }).catch(console.log);
 
-            assetPromise.catch(console.log);
         }
     });
 

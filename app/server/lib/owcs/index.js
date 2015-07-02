@@ -6,36 +6,42 @@ var request = require('request-promise'),
 
 function getTicket() {
     return new Promise(function (resolve, reject) {
-        var ticketRequest = request({
+        request({
             headers: { 'content-type' : 'application/x-www-form-urlencoded' },
             method: 'POST',
             url: 'http://mgmt-www-ft.cars.com/cas/v1/tickets',
             body: 'username=' + argv.username + '&password=' + argv.password,
             resolveWithFullResponse: true
-        });
-        ticketRequest.then(function (response) {
+        }).then(function (response) {
             resolve(response.headers.location);
-        });
-        ticketRequest.catch(reject);
+        }).catch(reject);
     });
 }
 
 function authenticate() {
     return new Promise(function (resolve, reject) {
-        getTicket().then(function (ticketUrl) {
-            var authRequest = request({
-                headers: { 'content-type' : 'application/x-www-form-urlencoded' },
-                method: 'POST',
-                url: ticketUrl,
-                body: 'service=*',
-                resolveWithFullResponse: true
-            });
-            authRequest.then(function (response) {
-                sessionData.ticket = response.body;
-                resolve();
-            });
-            authRequest.catch(reject);
-        });
+
+        // @TODO
+        // this is temp solution for caching ticket.
+        // need more robust solution...
+        if (!sessionData.ticket) {
+
+            getTicket().then(function (ticketUrl) {
+                request({
+                    headers: { 'content-type' : 'application/x-www-form-urlencoded' },
+                    method: 'POST',
+                    url: ticketUrl,
+                    body: 'service=*',
+                    resolveWithFullResponse: true
+                }).then(function (response) {
+                    sessionData.ticket = response.body;
+                    resolve();
+                }).catch(reject);
+            }).catch(reject);
+
+        } else {
+            resolve();
+        }
     });
 }
 
@@ -93,51 +99,47 @@ function findAssetAssociations(associationData) {
     return (typeof assetsData === 'object') ? assetsData.associatedAsset || [] : [];
 }
 
-function transformAttributes (attr) {
+function transformAttributes (attributes) {
     var r = {};
-    _.forEach(attr, function (v) {
+    _.forEach(attributes, function (v) {
         if (v.data) {
             if (v.data.stringValue) r[v.name] = v.data.stringValue;
             if (v.data.longValue) r[v.name] = v.data.longValue;
-            if (v.data.listValue) r[v.name] = v.data.listValue;
+            if (v.data.listValue) r[v.name] = transformAttributes(v.data.listValue.item[0].item);
             if (v.data.webreferenceList) r[v.name] = v.data.webreferenceList;
         }
     });
     return r;
 }
+function assignProperty(target, source, prop) {
+    if (source[prop]) target[prop] = source[prop];
+    return target;
+}
 
 function parseAssetData(data) {
     var parsed = {};
-    parsed.id = data.id;
-    parsed.name = data.name;
-    parsed.createdby = data.createdby;
-    parsed.createddate = data.createddate;
-    parsed.description = data.description;
-    parsed.subtype = data.subtype;
-    parsed.updatedby = data.updatedby;
-    parsed.updateddate = data.updateddate;
+    assignProperty(parsed, data, 'id');
+    assignProperty(parsed, data, 'name');
+    assignProperty(parsed, data, 'createdby');
+    assignProperty(parsed, data, 'createddate');
+    assignProperty(parsed, data, 'description');
+    assignProperty(parsed, data, 'subtype');
+    assignProperty(parsed, data, 'updatedby');
+    assignProperty(parsed, data, 'updateddate');
     parsed.attributes = transformAttributes(data.attribute);
-    parsed.associatedAssets = (data.associations) ? findAssetAssociations(data.associations.association) : [];
+    if (data.associations) parsed.associatedAssets = findAssetAssociations(data.associations.association);
     return parsed;
 }
 
 function getAssetWithAssociated(asset) {
     return new Promise(function (resolve, reject) {
-        var assetPromise = getAsset(asset);
-
-        assetPromise.then(function (data) {
-            var parsed = parseAssetData(data),
-                associatedAssetsPromise = getAssetsFromRefs(parsed.associatedAssets);
-
-            associatedAssetsPromise.then(function (assetsData) {
+        getAsset(asset).then(function (data) {
+            var parsed = parseAssetData(data);
+            getAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
                 parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
                 resolve(parsed);
-            });
-
-            associatedAssetsPromise.catch(reject);
-        });
-
-        assetPromise.catch(reject);
+            }).catch(reject);
+        }).catch(reject);
     });
 }
 
