@@ -121,10 +121,30 @@ function parseAssetData(data) {
     return parsed;
 }
 
+function getAssetWithAssociated(asset) {
+    return new Promise(function (resolve, reject) {
+        var assetPromise = getAsset(asset);
+
+        assetPromise.then(function (data) {
+            var parsed = parseAssetData(data),
+                associatedAssetsPromise = getAssetsFromRefs(parsed.associatedAssets);
+
+            associatedAssetsPromise.then(function (assetsData) {
+                parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
+                resolve(parsed);
+            });
+
+            associatedAssetsPromise.catch(reject);
+        });
+
+        assetPromise.catch(reject);
+    });
+}
 
 module.exports = {
     getAsset: getAsset,
     getAssetsFromRefs: getAssetsFromRefs,
+    getAssetWithAssociated: getAssetWithAssociated,
     authenticate: authenticate,
     findAssetAssociations: findAssetAssociations,
     transformAttributes: transformAttributes,

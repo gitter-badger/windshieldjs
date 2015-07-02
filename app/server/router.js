@@ -20,16 +20,12 @@ module.exports = function (server) {
         handler: function (req, reply) {
             var type = req.params.type,
                 id = req.params.id,
-                assetPromise = owcs.getAsset({ type: type, id: id });
+                assetPromise = owcs.getAssetWithAssociated({ type: type, id: id });
+
             assetPromise.then(function (data) {
-                var parsed = owcs.parseAssetData(data),
-                    associatedAssetsPromise = owcs.getAssetsFromRefs(parsed.associatedAssets);
-                associatedAssetsPromise.then(function (assetsData) {
-                    parsed.associatedAssetsData = _.map(assetsData, owcs.parseAssetData);
-                    reply(parsed);
-                });
-                associatedAssetsPromise.catch(console.log);
+                reply(data);
             });
+
             assetPromise.catch(console.log);
         }
     });
