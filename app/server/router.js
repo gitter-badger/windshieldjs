@@ -20,9 +20,15 @@ module.exports = function (server) {
         handler: function (req, reply) {
             var type = req.params.type,
                 id = req.params.id,
-                assetPromise = owcs.getAsset(type, id);
+                assetPromise = owcs.getAsset({ type: type, id: id });
             assetPromise.then(function (data) {
-                reply(owcs.parseAssetData(data));
+                var parsed = owcs.parseAssetData(data),
+                    associatedAssetsPromise = owcs.getAssetsFromRefs(parsed.associatedAssets);
+                associatedAssetsPromise.then(function (assetsData) {
+                    parsed.associatedAssetsData = assetsData;
+                    reply(parsed);
+                });
+                associatedAssetsPromise.catch(console.log);
             });
             assetPromise.catch(console.log);
         }

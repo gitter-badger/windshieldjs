@@ -39,7 +39,19 @@ function authenticate() {
     });
 }
 
-function getAsset(assetType, assetId) {
+function constructAssetUrl(asset) {
+    return 'http://mgmt-www-ft.cars.com/cs/REST/sites/www-cars-com/types/' + asset.type + '/assets/' + asset.id;
+}
+
+function parseAssetRef(assetRef) {
+    var parsed = {},
+        assetParts = assetRef.split(':');
+    parsed.type = assetParts[0];
+    parsed.id = assetParts[1];
+    return parsed;
+}
+
+function getAsset(asset) {
     return new Promise(function (resolve, reject) {
         authenticate().then(function (body) {
             var assetRequest = request({
@@ -48,7 +60,7 @@ function getAsset(assetType, assetId) {
                     'pragma': 'auth-redirect=false'
                 },
                 method: 'GET',
-                url: 'http://mgmt-www-ft.cars.com/cs/REST/sites/www-cars-com/types/' + assetType + '/assets/' + assetId,
+                url: constructAssetUrl(asset),
                 qs: {
                     multiticket: sessionData.ticket
                 },
@@ -68,20 +80,33 @@ function getAsset(assetType, assetId) {
     });
 }
 
-function findAssetAssociations(assoc) {
-    return _.findWhere(assoc, { name: 'assets' }).associatedAsset;
+function getAssetsFromRefs(assetRefsArray) {
+    var promises = [];
+    assetRefsArray.forEach(function (assetRef) {
+        promises.push(getAsset(parseAssetRef(assetRef)));
+    });
+    return Promise.all(promises);
+}
+
+function findAssetAssociations(associationData) {
+    return _.findWhere(associationData, { name: 'assets' }).associatedAsset || [];
 }
 
 function transformAttributes (attr) {
     var r = {};
     _.forEach(attr, function (v) {
-        r[v.name] = v.data;
+        if (v.data) {
+            if (v.data.stringValue) r[v.name] = v.data.stringValue;
+            if (v.data.longValue) r[v.name] = v.data.longValue;
+            if (v.data.webreferenceList) r[v.name] = v.data.webreferenceList;
+        }
     });
     return r;
 }
 
 function parseAssetData(data) {
     var parsed = {};
+    console.log(data);
     parsed.id = data.id;
     parsed.name = data.name;
     parsed.createdby = data.createdby;
@@ -98,6 +123,7 @@ function parseAssetData(data) {
 
 module.exports = {
     getAsset: getAsset,
+    getAssetsFromRefs: getAssetsFromRefs,
     authenticate: authenticate,
     findAssetAssociations: findAssetAssociations,
     transformAttributes: transformAttributes,

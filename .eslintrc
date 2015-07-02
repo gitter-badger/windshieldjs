@@ -12,7 +12,7 @@
         "no-mixed-requires": 0,
         "wrap-iife": [2, "any"],
         "camelcase": 2,
-        "curly": 1,
+        "curly": 0,
         "eqeqeq": 0,
         "no-extend-native": 1,
         "no-native-reassign": 2,
