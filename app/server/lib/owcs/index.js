@@ -139,15 +139,10 @@ function getAssetWithAssociated(asset) {
         getAsset(asset).then(function (data) {
             var parsed = parseAssetData(data);
             getAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
-                var manualRecs, manualRecPromises = [];
                 parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
-                var manualRecs = _.map(_.compact(_.pluck(_.pluck(parsed.associatedAssetsData, 'attributes'), 'Manualrecs')), function (v, i) {
-                    return _.pluck(v, 'assetid');
-                });
-                _.forEach(manualRecs, function (v, i) {
-                    manualRecPromises.push(getAssetsFromRefs(v));
-                });
-                Promise.all(manualRecPromises).then(function (allManualRecData) {
+                Promise.all(_.map(parsed.associatedAssetsData, _.flow(_.property('attributes.Manualrecs'), _.partialRight(_.map, 'assetid'))).map(function (v) {
+                    return getAssetsFromRefs(v);
+                })).then(function (allManualRecData) {
                     _.forEach(allManualRecData, function (v, i) {
                         var attrs = parsed.associatedAssetsData[i].attributes;
                         if (attrs.Manualrecs) attrs.ManualrecsData = _.map(v, parseAssetData);
