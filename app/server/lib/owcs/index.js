@@ -113,6 +113,7 @@ function transformAttributes (attributes) {
     });
     return r;
 }
+
 function assignProperty(target, source, prop) {
     if (source[prop]) target[prop] = source[prop];
     return target;
@@ -138,8 +139,21 @@ function getAssetWithAssociated(asset) {
         getAsset(asset).then(function (data) {
             var parsed = parseAssetData(data);
             getAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
+                var manualRecs, manualRecPromises = [];
                 parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
-                resolve(parsed);
+                var manualRecs = _.map(_.compact(_.pluck(_.pluck(parsed.associatedAssetsData, 'attributes'), 'Manualrecs')), function (v, i) {
+                    return _.pluck(v, 'assetid');
+                });
+                _.forEach(manualRecs, function (v, i) {
+                    manualRecPromises.push(getAssetsFromRefs(v));
+                });
+                Promise.all(manualRecPromises).then(function (allManualRecData) {
+                    _.forEach(allManualRecData, function (v, i) {
+                        var attrs = parsed.associatedAssetsData[i].attributes;
+                        if (attrs.Manualrecs) attrs.ManualrecsData = _.map(v, parseAssetData);
+                    });
+                    resolve(parsed);
+                }).catch(reject);
             }).catch(reject);
         }).catch(reject);
     });
