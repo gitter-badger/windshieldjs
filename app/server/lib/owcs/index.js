@@ -18,27 +18,29 @@ function getTicket() {
     });
 }
 
+function makeAuthRequest(ticketUrl) {
+    return new Promise(function (resolve, reject) {
+        request({
+            headers: { 'content-type' : 'application/x-www-form-urlencoded' },
+            method: 'POST',
+            url: ticketUrl,
+            body: 'service=*',
+            resolveWithFullResponse: true
+        }).then(function (response) {
+            sessionData.ticket = response.body;
+            resolve();
+        }).catch(reject);
+    });
+}
+
 function authenticate() {
     return new Promise(function (resolve, reject) {
-
-        // @TODO
-        // this is temp solution for caching ticket.
-        // need more robust solution...
+        // @TODO: this is temp solution for caching ticket.
         if (!sessionData.ticket) {
-
-            getTicket().then(function (ticketUrl) {
-                request({
-                    headers: { 'content-type' : 'application/x-www-form-urlencoded' },
-                    method: 'POST',
-                    url: ticketUrl,
-                    body: 'service=*',
-                    resolveWithFullResponse: true
-                }).then(function (response) {
-                    sessionData.ticket = response.body;
-                    resolve();
-                }).catch(reject);
-            }).catch(reject);
-
+            getTicket()
+                .then(makeAuthRequest)
+                .then(resolve)
+                .catch(reject);
         } else {
             resolve();
         }
@@ -59,8 +61,8 @@ function parseAssetRef(assetRef) {
 
 function getAsset(asset) {
     return new Promise(function (resolve, reject) {
-        authenticate().then(function (body) {
-            var assetRequest = request({
+        authenticate().then(function () {
+            request({
                 headers: {
                     'accept': 'application/json;charset=utf-8',
                     'pragma': 'auth-redirect=false'
@@ -78,40 +80,9 @@ function getAsset(asset) {
                         reject();
                     }
                 }
-            });
-            assetRequest.then(resolve);
-            assetRequest.catch(reject);
+            }).then(resolve).catch(reject);
         });
-
     });
-}
-
-function getAssetsFromRefs(assetRefsArray) {
-    var promises = [];
-    assetRefsArray.forEach(function (assetRef) {
-        promises.push(getAsset(parseAssetRef(assetRef)));
-    });
-    return Promise.all(promises);
-}
-
-function findAssetAssociations(associationData) {
-    var assetsData = _.findWhere(associationData, { name: 'assets' });
-    return (typeof assetsData === 'object') ? assetsData.associatedAsset || [] : [];
-}
-
-function transformAttributes (attributes) {
-    var r = {};
-    _.forEach(attributes, function (v) {
-        if (v.data) {
-            if (v.data.stringValue) r[v.name] = v.data.stringValue;
-            if (v.data.longValue) r[v.name] = v.data.longValue;
-            if (v.data.listValue) r[v.name] = _.map(v.data.listValue.item, function (i) {
-                return transformAttributes(i.item);
-            });
-            if (v.data.webreferenceList) r[v.name] = v.data.webreferenceList;
-        }
-    });
-    return r;
 }
 
 function assignProperty(target, source, prop) {
@@ -119,7 +90,27 @@ function assignProperty(target, source, prop) {
     return target;
 }
 
-function parseAssetData(data) {
+function _transformAttributes (attributes) {
+    var r = {};
+    _.forEach(attributes, function (v) {
+        if (v.data) {
+            if (v.data.stringValue) r[v.name] = v.data.stringValue;
+            if (v.data.longValue) r[v.name] = v.data.longValue;
+            if (v.data.listValue) r[v.name] = _.map(v.data.listValue.item, function (i) {
+                return _transformAttributes(i.item);
+            });
+            if (v.data.webreferenceList) r[v.name] = v.data.webreferenceList;
+        }
+    });
+    return r;
+}
+
+function _findAssetAssociations(associationData) {
+    var assetsData = _.findWhere(associationData, { name: 'assets' });
+    return (typeof assetsData === 'object') ? assetsData.associatedAsset || [] : [];
+}
+
+function _parseAssetData(data) {
     var parsed = {};
     assignProperty(parsed, data, 'id');
     assignProperty(parsed, data, 'name');
@@ -129,37 +120,56 @@ function parseAssetData(data) {
     assignProperty(parsed, data, 'subtype');
     assignProperty(parsed, data, 'updatedby');
     assignProperty(parsed, data, 'updateddate');
-    parsed.attributes = transformAttributes(data.attribute);
-    if (data.associations) parsed.associatedAssets = findAssetAssociations(data.associations.association);
+    parsed.attributes = _transformAttributes(data.attribute);
+    if (data.associations) parsed.associatedAssets = _findAssetAssociations(data.associations.association);
     return parsed;
 }
 
-function getAssetWithAssociated(asset) {
+function parseAssetData(data) {
     return new Promise(function (resolve, reject) {
-        getAsset(asset).then(function (data) {
-            var parsed = parseAssetData(data);
-            getAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
-                parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
-                Promise.all(_.map(parsed.associatedAssetsData, _.flow(_.property('attributes.Manualrecs'), _.partialRight(_.map, 'assetid'))).map(function (v) {
-                    return getAssetsFromRefs(v);
-                })).then(function (allManualRecData) {
-                    _.forEach(allManualRecData, function (v, i) {
-                        var attrs = parsed.associatedAssetsData[i].attributes;
-                        if (attrs.Manualrecs) attrs.ManualrecsData = _.map(v, parseAssetData);
-                    });
-                    resolve(parsed);
-                }).catch(reject);
-            }).catch(reject);
+        resolve(_parseAssetData(data));
+    });
+}
+
+function getAssetsDataFromRefs(assetRefs) {
+    return Promise.all(assetRefs.map(function (assetid) {
+        return getAsset(parseAssetRef(assetid));
+    }));
+}
+
+function addAssetsDataToParsed(parsed) {
+    return new Promise(function (resolve, reject) {
+        getAssetsDataFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
+            parsed.associatedAssetsData = _.map(assetsData, _parseAssetData);
+            resolve(parsed);
         }).catch(reject);
     });
 }
 
+function addManualrecsDataToParsed(parsed) {
+    return new Promise(function (resolve, reject) {
+        Promise.all(_.map(parsed.associatedAssetsData, _.flow(_.property('attributes.Manualrecs'), _.partialRight(_.map, 'assetid'))).map(function (v) {
+            return getAssetsDataFromRefs(v);
+        })).then(function (allManualRecData) {
+            _.forEach(allManualRecData, function (v, i) {
+                var attrs = parsed.associatedAssetsData[i].attributes;
+                if (attrs.Manualrecs) attrs.ManualrecsData = _.map(v, _parseAssetData);
+            });
+            resolve(parsed);
+        }).catch(reject);
+    });
+}
+
+function getAssetWithAssociated(asset) {
+    return getAsset(asset)
+        .then(parseAssetData)
+        .then(addAssetsDataToParsed)
+        .then(addManualrecsDataToParsed);
+}
+
 module.exports = {
-    getAsset: getAsset,
-    getAssetsFromRefs: getAssetsFromRefs,
-    getAssetWithAssociated: getAssetWithAssociated,
     authenticate: authenticate,
-    findAssetAssociations: findAssetAssociations,
-    transformAttributes: transformAttributes,
-    parseAssetData: parseAssetData
+    getAsset: getAsset,
+    getAssetsDataFromRefs: getAssetsDataFromRefs,
+    getAssetWithAssociated: getAssetWithAssociated
 };
