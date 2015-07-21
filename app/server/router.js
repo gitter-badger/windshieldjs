@@ -2,7 +2,7 @@ var path = require('path'),
     request = require('request-promise'),
     _ = require('lodash'),
     config = require('../../config.json'),
-    owcs = require('./lib/owcs');
+    owcs = require('./lib/owcs')(config.owcs.host);
 
 module.exports = function (server) {
 
@@ -11,16 +11,49 @@ module.exports = function (server) {
         method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            owcs.getAssetWithAssociated({ type: 'Page', id: 1415909398642 }).then(function (data) {
+            owcs.promises.getAssetWithAssociated({ type: 'Page', id: '1415909398642' }).then(function (data) {
                 var parsed = {};
+
                 parsed.name = data.name;
-                parsed.carouselItems = _.map(data.associatedAssetsData[0].attributes.ManualrecsData, function (item) {
-                    var parsed = {};
-                    parsed.name = item.name;
-                    parsed.href = item.attributes.Webreference[0].url;
-                    return parsed;
+
+                parsed.slots = _.map(data.associatedAssetsData, function (item) {
+                    var slot = {};
+                    slot.name = item.name;
+                    slot.subtype = item.subtype;
+                    switch (item.subtype) {
+                        case 'CuratedArticles':
+                            slot.isCuratedArticles = true;
+                            slot.items = _.map(item.attributes.ManualrecsData, function (item) {
+                                var r = {};
+                                r.name = item.name;
+                                r.href = item.attributes.Webreference[0].url;
+                                return r;
+                            });
+                            break;
+                        case 'Ad':
+                            slot.isAd = true;
+                            slot.adSlot = item.attributes.adSlot;
+                            slot.adSize = item.attributes.adSize;
+                            break;
+                        case 'LatestPublishedArticles':
+                            slot.isLatestPublishedArticles = true;
+                            break;
+                        case 'CuratedTag':
+                            slot.isCuratedTag = true;
+                            slot.title = item.attributes.title;
+                            break;
+                        case 'Article':
+                            slot.isArticle = true;
+                            slot.headline = item.attributes.headline;
+                            slot.body = item.attributes.body;
+                            slot.href = item.attributes.Webreference[0].url;
+                            break;
+                    }
+                    return slot;
                 });
+
                 reply.view('news', parsed);
+
             }).catch(console.log);
         }
     });
@@ -33,7 +66,7 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.getAssetWithAssociated({ type: type, id: id }).then(function (data) {
+            owcs.promises.getAssetWithAssociated({ type: type, id: id }).then(function (data) {
                 reply(data);
             }).catch(console.log);
 

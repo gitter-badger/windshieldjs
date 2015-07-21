@@ -1,3 +1,6 @@
 {
-    "port": 1337
+    "port": 1337,
+    "owcs": {
+        "host": "http://mgmt-www-ft.cars.com"
+    }
 }
