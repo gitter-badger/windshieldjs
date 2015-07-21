@@ -6,14 +6,26 @@ var path = require('path'),
 
 module.exports = function (server) {
 
+    // example of rendering the news page - minus the global nav for now
     server.route({
         method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            reply.view('layout');
+            owcs.getAssetWithAssociated({ type: 'Page', id: 1415909398642 }).then(function (data) {
+                var parsed = {};
+                parsed.name = data.name;
+                parsed.carouselItems = _.map(data.associatedAssetsData[0].attributes.ManualrecsData, function (item) {
+                    var parsed = {};
+                    parsed.name = item.name;
+                    parsed.href = item.attributes.Webreference[0].url;
+                    return parsed;
+                });
+                reply.view('news', parsed);
+            }).catch(console.log);
         }
     });
 
+    // asset API Example
     server.route({
         method: 'GET',
         path: '/asset/{type}/{id}',
@@ -28,6 +40,7 @@ module.exports = function (server) {
         }
     });
 
+    // Static server - could just as easily do this via nginx
     server.route({
         method: 'GET',
         path: '/static/{param*}',
