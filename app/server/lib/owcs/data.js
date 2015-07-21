@@ -1,4 +1,6 @@
 module.exports = {
-    config: {},
+    config: {
+        host: "http://localhost"
+    },
     session: {}
 };
