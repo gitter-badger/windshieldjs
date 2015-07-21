@@ -1,11 +1,11 @@
 var Promise = require('bluebird'),
     _ = require('lodash'),
-    getAssetsDataFromRefs = require('./getAssetsDataFromRefs'),
+    requestAssetsFromRefs = require('./requestAssetsFromRefs'),
     parseAssetData = require('../functions/parseAssetData');
 
 module.exports = function (parsed) {
     return new Promise(function (resolve, reject) {
-        getAssetsDataFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
+        requestAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
             parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
             resolve(parsed);
         }).catch(reject);

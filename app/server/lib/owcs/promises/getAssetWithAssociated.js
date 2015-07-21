@@ -1,11 +1,11 @@
 var Promise = require('bluebird'),
-    getAsset = require('./getAsset'),
+    requestAsset = require('./requestAsset'),
     parseAssetData = require('./parseAssetData'),
     addAssetsDataToParsed = require('./addAssetsDataToParsed'),
     addManualrecsDataToParsed = require('./addManualrecsDataToParsed');
 
 module.exports = function (asset) {
-    return getAsset(asset)
+    return requestAsset(asset)
         .then(parseAssetData)
         .then(addAssetsDataToParsed)
         .then(addManualrecsDataToParsed);

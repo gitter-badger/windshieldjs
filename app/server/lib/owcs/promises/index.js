@@ -1,10 +1,10 @@
 module.exports = {
-    makeTicketRequest: require('./makeTicketRequest'),
-    makeAuthRequest: require('./makeAuthRequest'),
+    requestTicket: require('./requestTicket'),
+    requestAuthentication: require('./requestAuthentication'),
     authenticate: require('./authenticate'),
-    getAsset: require('./getAsset'),
+    requestAsset: require('./requestAsset'),
     parseAssetData: require('./parseAssetData'),
-    getAssetsDataFromRefs: require('./getAssetsDataFromRefs'),
+    requestAssetsFromRefs: require('./requestAssetsFromRefs'),
     addAssetsDataToParsed: require('./addAssetsDataToParsed'),
     addManualrecsDataToParsed: require('./addManualrecsDataToParsed'),
     getAssetWithAssociated: require('./getAssetWithAssociated')

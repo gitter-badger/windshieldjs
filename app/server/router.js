@@ -18,7 +18,7 @@ module.exports = function (server) {
         }
     });
 
-    // asset API Example
+    // parsed asset data
     server.route({
         method: 'GET',
         path: '/asset/{type}/{id}',
@@ -33,7 +33,22 @@ module.exports = function (server) {
         }
     });
 
-    // Static server - could just as easily do this via nginx
+    // raw asset data
+    server.route({
+        method: 'GET',
+        path: '/raw/{type}/{id}',
+        handler: function (req, reply) {
+            var type = req.params.type,
+                id = req.params.id;
+
+            owcs.promises.requestAsset({ type: type, id: id }).then(function (data) {
+                reply(data);
+            }).catch(console.log);
+
+        }
+    });
+
+    // static server - could just as easily do this via nginx
     server.route({
         method: 'GET',
         path: '/static/{param*}',

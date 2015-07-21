@@ -1,15 +1,15 @@
 var request = require('request-promise'),
     Promise = require('bluebird'),
-    makeTicketRequest = require('./makeTicketRequest'),
-    makeAuthRequest = require('./makeAuthRequest'),
+    requestTicket = require('./requestTicket'),
+    requestAuthentication = require('./requestAuthentication'),
     data = require('../data');
 
 module.exports = function () {
     return new Promise(function (resolve, reject) {
         // @TODO: this is temp solution for caching ticket.
         if (!data.session.ticket) {
-            makeTicketRequest()
-                .then(makeAuthRequest)
+            requestTicket()
+                .then(requestAuthentication)
                 .then(resolve)
                 .catch(reject);
         } else {
