@@ -5,7 +5,7 @@ module.exports = {
         return function (data) {
             var parsed = {};
 
-            parsed.name = data.name;
+            parsed.title = data.attributes.title;
 
             parsed.slots = _.map(data.associatedAssetsData, function (item) {
                 var slot = {};
