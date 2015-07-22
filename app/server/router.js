@@ -26,10 +26,9 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.getAssetWithAssociated({ type: type, id: id }).then(function (data) {
-                reply(data);
-            }).catch(console.log);
-
+            owcs.promises.getAssetWithAssociated({ type: type, id: id })
+                .then(reply)
+                .catch(console.log);
         }
     });
 
@@ -41,7 +40,19 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.requestAsset({ type: type, id: id }).then(function (data) {
+            owcs.promises.requestAsset({ type: type, id: id })
+                .then(reply)
+                .catch(console.log);
+
+        }
+    });
+
+    // navigation data
+    server.route({
+        method: 'GET',
+        path: '/nav',
+        handler: function (req, reply) {
+            owcs.promises.requestNavigation().then(function (data) {
                 reply(data);
             }).catch(console.log);
 

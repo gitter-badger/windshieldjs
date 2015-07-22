@@ -3,6 +3,7 @@ module.exports = {
     requestAuthentication: require('./requestAuthentication'),
     authenticate: require('./authenticate'),
     requestAsset: require('./requestAsset'),
+    requestNavigation: require('./requestNavigation'),
     parseAssetData: require('./parseAssetData'),
     requestAssetsFromRefs: require('./requestAssetsFromRefs'),
     addAssetsDataToParsed: require('./addAssetsDataToParsed'),
