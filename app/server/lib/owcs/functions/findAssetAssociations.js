@@ -1,6 +1,9 @@
 var _ = require('lodash');
 
 module.exports = function (associationData) {
-    var assetsData = _.findWhere(associationData, { name: 'assets' });
-    return (typeof assetsData === 'object') ? assetsData.associatedAsset || [] : [];
+    var result = {};
+    _.forEach(associationData, function (v) {
+        result[v.name] = v.associatedAsset;
+    });
+    return result;
 };

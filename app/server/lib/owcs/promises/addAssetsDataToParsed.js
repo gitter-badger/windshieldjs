@@ -5,7 +5,7 @@ var Promise = require('bluebird'),
 
 module.exports = function (parsed) {
     return new Promise(function (resolve, reject) {
-        requestAssetsFromRefs(parsed.associatedAssets || []).then(function (assetsData) {
+        requestAssetsFromRefs(_.flatten(_.values(parsed.associatedAssets)) || []).then(function (assetsData) {
             parsed.associatedAssetsData = _.map(assetsData, parseAssetData);
             resolve(parsed);
         }).catch(reject);
