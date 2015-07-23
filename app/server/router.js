@@ -12,7 +12,7 @@ module.exports = function (server) {
         method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            owcs.promises.getAssetWithAssociated({ type: 'Page', id: '1415909398642' })
+            owcs.promises.getAssetWithAssociated('Page:1415909398642')
                 .then(cars.renderPage(reply, 'news'))
                 .catch(console.log);
         }
@@ -26,8 +26,14 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.getAssetWithAssociated({ type: type, id: id })
-                .then(reply)
+            owcs.promises.getAssetDao(owcs.functions.constructAssetRef(type, id))
+                .then(function (dao) {
+                    //reply(dao.getAssociatedAssets());
+                    //reply(dao.getAssociatedAssets('assets'));
+                    //reply(dao.getAssociatedAssetsData('AdvCols:1415909369289'));
+                    //reply(dao.getAssociatedAssetsData());
+                    reply(dao.get());
+                })
                 .catch(console.log);
         }
     });
@@ -40,7 +46,7 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.requestAsset({ type: type, id: id })
+            owcs.promises.requestAsset(owcs.functions.constructAssetRef(type, id))
                 .then(reply)
                 .catch(console.log);
 

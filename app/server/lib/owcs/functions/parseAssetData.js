@@ -13,6 +13,9 @@ module.exports = function (data) {
     assignProperty(parsed, data, 'updatedby');
     assignProperty(parsed, data, 'updateddate');
     parsed.attributes = transformAttributes(data.attribute);
-    if (data.associations) parsed.associatedAssets = findAssetAssociations(data.associations.association);
+    if (data.associations && data.associations.association) {
+        parsed.associatedAssets = findAssetAssociations(data.associations.association);
+        parsed.associatedAssetsData = data.associatedAssetsData;
+    }
     return parsed;
 };

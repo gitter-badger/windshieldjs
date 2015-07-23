@@ -1,12 +1,12 @@
 var Promise = require('bluebird'),
     requestAsset = require('./requestAsset'),
     parseAssetData = require('./parseAssetData'),
-    addAssetsDataToParsed = require('./addAssetsDataToParsed'),
+    addAssociatedAssetsDataToParsed = require('./addAssociatedAssetsDataToParsed'),
     addManualrecsDataToParsed = require('./addManualrecsDataToParsed');
 
-module.exports = function (asset) {
-    return requestAsset(asset)
+module.exports = function (assetRef) {
+    return requestAsset(assetRef)
         .then(parseAssetData)
-        .then(addAssetsDataToParsed)
+        .then(addAssociatedAssetsDataToParsed)
         .then(addManualrecsDataToParsed);
 };

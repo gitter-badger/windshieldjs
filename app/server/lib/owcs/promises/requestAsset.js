@@ -4,7 +4,7 @@ var request = require('request-promise'),
     authenticate = require('./authenticate'),
     data = require('../data');
 
-module.exports = function (asset) {
+module.exports = function (assetRef) {
     return new Promise(function (resolve, reject) {
         authenticate().then(function () {
             request({
@@ -13,7 +13,7 @@ module.exports = function (asset) {
                     'pragma': 'auth-redirect=false'
                 },
                 method: 'GET',
-                url: constructAssetUrl(asset),
+                url: constructAssetUrl(assetRef),
                 qs: {
                     multiticket: data.session.ticket
                 },
@@ -22,7 +22,7 @@ module.exports = function (asset) {
                     try {
                         return JSON.parse(body);
                     } catch (e) {
-                        reject();
+                        reject(e);
                     }
                 }
             }).then(resolve).catch(reject);

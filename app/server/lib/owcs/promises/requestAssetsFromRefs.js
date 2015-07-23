@@ -4,7 +4,7 @@ var Promise = require('bluebird'),
     parseAssetRef = require('../functions/parseAssetRef');
 
 module.exports = function (assetRefs) {
-    return Promise.all(_.map(assetRefs, function (assetid) {
-        return requestAsset(parseAssetRef(assetid));
+    return Promise.all(_.map(assetRefs, function (assetref) {
+        return requestAsset(assetref);
     }));
 };

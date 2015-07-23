@@ -6,7 +6,8 @@ module.exports = {
     requestNavigation: require('./requestNavigation'),
     parseAssetData: require('./parseAssetData'),
     requestAssetsFromRefs: require('./requestAssetsFromRefs'),
-    addAssetsDataToParsed: require('./addAssetsDataToParsed'),
+    addAssociatedAssetsDataToParsed: require('./addAssociatedAssetsDataToParsed'),
     addManualrecsDataToParsed: require('./addManualrecsDataToParsed'),
-    getAssetWithAssociated: require('./getAssetWithAssociated')
+    getAssetWithAssociated: require('./getAssetWithAssociated'),
+    getAssetDao: require('./getAssetDao')
 };
