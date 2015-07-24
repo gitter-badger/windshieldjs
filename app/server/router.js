@@ -3,7 +3,7 @@ var path = require('path'),
     _ = require('lodash'),
     config = require('../../config.json'),
     owcs = require('./lib/owcs')(config.owcs.host),
-    cars = require('./lib/cars');
+    cars = require('./lib/cars')(config);
 
 module.exports = function (server) {
 
@@ -12,8 +12,8 @@ module.exports = function (server) {
         method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            owcs.promises.getAssetWithAssociated('Page:1415909398642')
-                .then(cars.renderPage(reply, 'news'))
+            owcs.promises.getAssetDao('Page:1415909398642')
+                .then(cars.renderPage(reply, 'layouts/OneColumn'))
                 .catch(console.log);
         }
     });
@@ -30,8 +30,8 @@ module.exports = function (server) {
                 .then(function (dao) {
                     //reply(dao.getAssociatedAssets());
                     //reply(dao.getAssociatedAssets('assets'));
-                    //reply(dao.getAssociatedAssetsData('AdvCols:1415909369289'));
-                    //reply(dao.getAssociatedAssetsData());
+                    //reply(dao.getAssetData('AdvCols:1415909369289'));
+                    //reply(dao.getAssetData());
                     reply(dao.get());
                 })
                 .catch(console.log);

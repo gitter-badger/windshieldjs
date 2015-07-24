@@ -9,8 +9,8 @@ module.exports = function (parsed) {
     return new Promise(function (resolve, reject) {
         var assetRequests;
 
-        if (parsed.associatedAssetsData) {
-            assetRequests = _.map(parsed.associatedAssetsData,
+        if (parsed.assetData) {
+            assetRequests = _.map(parsed.assetData,
                 _.flow(
                     _.property('attributes.Manualrecs'),
                     _.partialRight(_.map, 'assetid'),
@@ -19,16 +19,16 @@ module.exports = function (parsed) {
             Promise.all(assetRequests).then(function (data) {
                 var promises = [];
                 _.forEach(data, function (v, i) {
-                    var attrs = parsed.associatedAssetsData[i].attributes,
+                    var attrs = parsed.assetData[i].attributes,
                         manualRecsData;
                     if (attrs.Manualrecs) {
                         manualRecsData = _.map(v, parseAssetData);
-                        parsed.associatedAssetsData = parsed.associatedAssetsData.concat(manualRecsData);
+                        parsed.assetData = parsed.assetData.concat(manualRecsData);
                         promises.push(requestAssetsFromRefs(_.flattenDeep(_.map(manualRecsData, _.flow(_.property('associatedAssets'), _.values)))));
                     }
                 });
                 Promise.all(promises).then(function (v) {
-                    parsed.associatedAssetsData = parsed.associatedAssetsData.concat(_.map(_.flatten(v), parseAssetData));
+                    parsed.assetData = parsed.assetData.concat(_.map(_.flatten(v), parseAssetData));
                     resolve(parsed);
                 }).catch(reject);
             }).catch(reject);

@@ -1,0 +1,9 @@
+<script>ignition.modules.register('media');</script>
+<cars-carousel show-text="true" show-thumbs="true" ng-cloak>
+{{#each items}}
+    <cars-carousel-item title="{{name}}" image="http://lpimages-st.cars.com/stock/1170x1170/14/-922595012-1432129342014.JPG" href="{{href}}">
+    <h3>{{name}}</h3>
+    <a href="{{href}}"><img alt="{{name}}" src="http://lpimages-st.cars.com/stock/765x765/14/-922595012-1432129342014.JPG" /></a>
+    </cars-carousel-item>
+{{/each}}
+</cars-carousel>

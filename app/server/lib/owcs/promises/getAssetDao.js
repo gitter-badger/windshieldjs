@@ -14,8 +14,21 @@ AssetDao.prototype.getAssociatedAssets = function (associationName) {
     return (associationName != null) ? this.data.associatedAssets[associationName] : this.data.associatedAssets;
 };
 
-AssetDao.prototype.getAssociatedAssetsData = function (assetRef) {
-    return (assetRef != null) ? _.findWhere(this.data.associatedAssetsData, { id: assetRef }) : this.data.associatedAssetsData;
+AssetDao.prototype.getAssetData = function (assetRef) {
+    return (assetRef != null) ? _.findWhere(this.data.assetData, { id: assetRef }) : this.data.assetData;
+};
+
+AssetDao.prototype.getAttribute = function (attributeName) {
+    return this.data.attributes[attributeName];
+};
+
+AssetDao.prototype.getManualrecs = function (assetRef) {
+    if (assetRef == null) throw new Error('assetRef is required');
+    return _.map(
+                _.flow(
+                    _.property('attributes.Manualrecs'),
+                    _.partialRight(_.map, 'assetid'))(this.getAssetData(assetRef)),
+            this.getAssetData.bind(this));
 };
 
 module.exports = function (assetRef) {

@@ -15,7 +15,7 @@ module.exports = function (data) {
     parsed.attributes = transformAttributes(data.attribute);
     if (data.associations && data.associations.association) {
         parsed.associatedAssets = findAssetAssociations(data.associations.association);
-        parsed.associatedAssetsData = data.associatedAssetsData;
+        parsed.assetData = data.assetData;
     }
     return parsed;
 };
