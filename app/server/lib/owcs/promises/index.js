@@ -8,6 +8,7 @@ module.exports = {
     requestAssetsFromRefs: require('./requestAssetsFromRefs'),
     addAssociatedAssetsDataToParsed: require('./addAssociatedAssetsDataToParsed'),
     addManualrecsDataToParsed: require('./addManualrecsDataToParsed'),
+    addNonStockImageAssetsDataToParsed: require('./addNonStockImageAssetsDataToParsed'),
     getAssetWithAssociated: require('./getAssetWithAssociated'),
     getAssetDao: require('./getAssetDao')
 };

@@ -5,6 +5,7 @@ var assignProperty = require('./assignProperty'),
 module.exports = function (data) {
     var parsed = {};
     assignProperty(parsed, data, 'id');
+    assignProperty(parsed, data, 'externalid');
     assignProperty(parsed, data, 'name');
     assignProperty(parsed, data, 'createdby');
     assignProperty(parsed, data, 'createddate');

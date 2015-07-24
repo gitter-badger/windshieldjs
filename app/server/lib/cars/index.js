@@ -14,7 +14,7 @@ module.exports = function (config) {
                 parsed.title = assetDao.getAttribute('title');
                 parsed.slots = [];
 
-                Promise.all(_.map(_.flatten(_.values(assetDao.getAssociatedAssets())), function (assetRef) {
+                Promise.all(_.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
                     var assetData = assetDao.getAssetData(assetRef),
                         asset = {},
                         recs = [];
@@ -24,10 +24,13 @@ module.exports = function (config) {
 
                     switch (assetData.subtype) {
                         case 'CuratedArticles':
-                            asset.items = _.map(assetDao.getManualrecs(assetRef), function (asset) {
-                                var r = {};
-                                r.name = asset.name;
-                                r.href = asset.attributes.Webreference[0].url;
+                            asset.items = _.map(assetDao.getManualrecs(assetRef), function (item) {
+                                var r = {},
+                                    carouselMedia = item.associatedAssets.carouselMedia ? item.associatedAssets.carouselMedia[0] : false,
+                                    mainMedia = item.associatedAssets.mainMedia ? item.associatedAssets.mainMedia[0] : false;
+                                r.imageUrl = assetDao.getNonStockImageUrl(carouselMedia ? carouselMedia : mainMedia);
+                                r.name = item.name;
+                                r.href = item.attributes.Webreference[0].url;
                                 return r;
                             });
                             break;

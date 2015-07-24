@@ -3,23 +3,23 @@ var Promise = require('bluebird'),
     getAssetWithAssociated = require('./getAssetWithAssociated');
 
 function AssetDao(data) {
-    this.data = data;
+    this.__data = data;
 }
 
 AssetDao.prototype.get = function (assetref) {
-    return this.data;
+    return this.__data;
 };
 
 AssetDao.prototype.getAssociatedAssets = function (associationName) {
-    return (associationName != null) ? this.data.associatedAssets[associationName] : this.data.associatedAssets;
+    return (associationName != null) ? this.get().associatedAssets[associationName] : this.get().associatedAssets;
 };
 
 AssetDao.prototype.getAssetData = function (assetRef) {
-    return (assetRef != null) ? _.findWhere(this.data.assetData, { id: assetRef }) : this.data.assetData;
+    return (assetRef != null) ? _.findWhere(this.get().assetData, { id: assetRef }) : this.get().assetData;
 };
 
 AssetDao.prototype.getAttribute = function (attributeName) {
-    return this.data.attributes[attributeName];
+    return this.get().attributes[attributeName];
 };
 
 AssetDao.prototype.getManualrecs = function (assetRef) {
@@ -29,6 +29,11 @@ AssetDao.prototype.getManualrecs = function (assetRef) {
                     _.property('attributes.Manualrecs'),
                     _.partialRight(_.map, 'assetid'))(this.getAssetData(assetRef)),
             this.getAssetData.bind(this));
+};
+
+AssetDao.prototype.getNonStockImageUrl = function (assetRef) {
+    if (assetRef == null) throw new Error('assetRef is required');
+    return this.get().nonStockImageUrls[assetRef];
 };
 
 module.exports = function (assetRef) {
