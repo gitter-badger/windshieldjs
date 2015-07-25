@@ -2,7 +2,7 @@ var request = require('request-promise'),
     Promise = require('bluebird'),
     constructNavigationUrl = require('../functions/constructNavigationUrl'),
     authenticate = require('./authenticate'),
-    data = require('../data');
+    session = require('../resources/session');
 
 module.exports = function (asset) {
     return new Promise(function (resolve, reject) {
@@ -15,7 +15,7 @@ module.exports = function (asset) {
                 method: 'GET',
                 url: constructNavigationUrl(),
                 qs: {
-                    multiticket: data.session.ticket
+                    multiticket: session.ticket
                 },
                 transform: function (body) {
                     var result;

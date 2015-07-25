@@ -1,5 +1,5 @@
-var data = require('../data');
+var config = require('../resources/config');
 
 module.exports = function (asset) {
-    return data.config.host + '/cs/REST/sites/www-cars-com/navigation';
+    return config.host + '/cs/REST/sites/www-cars-com/navigation';
 };

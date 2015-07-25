@@ -1,6 +1,6 @@
 var request = require('request-promise'),
     Promise = require('bluebird'),
-    data = require('../data');
+    session = require('../resources/session');
 
 module.exports = function (response) {
     return new Promise(function (resolve, reject) {
@@ -11,7 +11,7 @@ module.exports = function (response) {
             body: 'service=*',
             resolveWithFullResponse: true
         }).then(function (response) {
-            data.session.ticket = response.body;
+            session.ticket = response.body;
             resolve(response);
         }).catch(reject);
     });
