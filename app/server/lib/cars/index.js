@@ -30,7 +30,7 @@ module.exports = function (config) {
                                 var r = {},
                                     carouselMedia = item.associatedAssets.carouselMedia ? item.associatedAssets.carouselMedia[0] : false,
                                     mainMedia = item.associatedAssets.mainMedia ? item.associatedAssets.mainMedia[0] : false;
-                                r.imageUrl = assetDao.getNonStockImageUrl(carouselMedia ? carouselMedia : mainMedia);
+                                r.image = assetDao.getNonStockImageUrl(carouselMedia ? carouselMedia : mainMedia);
                                 r.name = item.name;
                                 r.href = item.attributes.Webreference[0].url;
                                 return r;
