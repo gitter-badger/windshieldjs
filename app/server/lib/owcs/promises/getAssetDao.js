@@ -38,9 +38,6 @@ AssetDao.prototype.getNonStockImageUrl = function (assetRef) {
 
 module.exports = function (assetRef, depth) {
     return new Promise(function (resolve, reject) {
-        //getAssetWithAssociated(assetRef).then(function (data) {
-        //    resolve(new AssetDao(data));
-        //});
         getAssetData(assetRef, depth).then(function (data) {
             resolve(new AssetDao(data));
         });
