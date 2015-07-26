@@ -14,7 +14,7 @@ module.exports = function (depth) {
                 var refs = getAssetRefs(subject);
                 _.spread(_.partial(_.pull, refs))(aquired);
                 _.remove(refs, function (v) {
-                    return /^PageDefinition\:|PageAttribute\:|AttrTypes\:|CARS_A\:|CARS_CD\:|CARS_F\:/.test(v);
+                    return /^(PageDefinition|PageAttribute|AttrTypes|CARS_A|CARS_CD|CARS_F)\:[0-9]{13}/.test(v);
                 });
                 aquired = aquired.concat(refs);
                 finalResolve = (finalResolve != null) ? finalResolve : resolve;
