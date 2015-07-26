@@ -10,6 +10,15 @@ module.exports = function (server) {
     // example of rendering the news page - minus the global nav for now
     server.route({
         method: 'GET',
+        path: '/test',
+        handler: function (req, reply) {
+            reply(owcs.functions.getReferencedAssetRefs());
+        }
+    });
+
+    // example of rendering the news page - minus the global nav for now
+    server.route({
+        method: 'GET',
         path: '/',
         handler: function (req, reply) {
             owcs.promises.getAssetDao('Page:1415909398642')
