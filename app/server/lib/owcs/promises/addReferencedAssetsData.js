@@ -2,7 +2,8 @@ var Promise = require('bluebird'),
     _ = require('lodash'),
     getAssetRefs = require('../functions/getAssetRefs'),
     requestAssetsFromRefs = require('./requestAssetsFromRefs'),
-    parseAssetData = require('../functions/parseAssetData');
+    parseAssetData = require('../functions/parseAssetData'),
+    assetTypeBlacklist = require('../resources/assetTypeBlacklist');
 
 module.exports = function (depth) {
     return function (data) {
@@ -14,7 +15,14 @@ module.exports = function (depth) {
                 var refs = getAssetRefs(subject);
                 _.spread(_.partial(_.pull, refs))(aquired);
                 _.remove(refs, function (v) {
-                    return /^(PageDefinition|PageAttribute|AttrTypes|CARS_A|CARS_CD|CARS_F)\:[0-9]{13}/.test(v);
+                    var str = '^(',
+                        reg;
+                    assetTypeBlacklist.forEach(function (v, i) {
+                        str += v + ((i === assetTypeBlacklist.length - 1) ? '' : '|');
+                    });
+                    str += ')\\:[0-9]{13}$';
+                    reg = new RegExp(str);
+                    return reg.test(v);
                 });
                 aquired = aquired.concat(refs);
                 finalResolve = (finalResolve != null) ? finalResolve : resolve;
