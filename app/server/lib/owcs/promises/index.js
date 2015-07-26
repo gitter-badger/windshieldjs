@@ -6,9 +6,8 @@ module.exports = {
     requestNavigation: require('./requestNavigation'),
     parseAssetData: require('./parseAssetData'),
     requestAssetsFromRefs: require('./requestAssetsFromRefs'),
-    addAssociatedAssetsDataToParsed: require('./addAssociatedAssetsDataToParsed'),
-    addManualrecsDataToParsed: require('./addManualrecsDataToParsed'),
-    addNonStockImageAssetsDataToParsed: require('./addNonStockImageAssetsDataToParsed'),
-    getAssetWithAssociated: require('./getAssetWithAssociated'),
+    addReferencedAssetsData: require('./addReferencedAssetsData'),
+    addNonStockImageUrls: require('./addNonStockImageUrls'),
+    getAssetData: require('./getAssetData'),
     getAssetDao: require('./getAssetDao')
 };

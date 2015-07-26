@@ -1,6 +1,6 @@
 var Promise = require('bluebird'),
     _ = require('lodash'),
-    getAssetWithAssociated = require('./getAssetWithAssociated');
+    getAssetData = require('./getAssetData');
 
 function AssetDao(data) {
     this.__data = data;
@@ -36,9 +36,12 @@ AssetDao.prototype.getNonStockImageUrl = function (assetRef) {
     return this.get().nonStockImageUrls[assetRef];
 };
 
-module.exports = function (assetRef) {
+module.exports = function (assetRef, depth) {
     return new Promise(function (resolve, reject) {
-        getAssetWithAssociated(assetRef).then(function (data) {
+        //getAssetWithAssociated(assetRef).then(function (data) {
+        //    resolve(new AssetDao(data));
+        //});
+        getAssetData(assetRef, depth).then(function (data) {
             resolve(new AssetDao(data));
         });
     });

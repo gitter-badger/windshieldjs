@@ -7,6 +7,7 @@ var request = require('request-promise'),
 module.exports = function (assetRef) {
     return new Promise(function (resolve, reject) {
         authenticate().then(function () {
+
             request({
                 headers: {
                     'accept': 'application/json;charset=utf-8',

@@ -8,7 +8,9 @@ var Promise = require('bluebird'),
 module.exports = function (config) {
     return {
         renderPage: function (reply, view) {
+
             return function (assetDao) {
+
                 var parsed = {};
 
                 parsed.title = assetDao.getAttribute('title');

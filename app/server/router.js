@@ -10,18 +10,9 @@ module.exports = function (server) {
     // example of rendering the news page - minus the global nav for now
     server.route({
         method: 'GET',
-        path: '/test',
-        handler: function (req, reply) {
-            reply(owcs.functions.getReferencedAssetRefs());
-        }
-    });
-
-    // example of rendering the news page - minus the global nav for now
-    server.route({
-        method: 'GET',
         path: '/',
         handler: function (req, reply) {
-            owcs.promises.getAssetDao('Page:1415909398642')
+            owcs.promises.getAssetDao('Page:1415909398642', 4)
                 .then(cars.renderPage(reply, 'layouts/OneColumn'))
                 .catch(console.log);
         }
@@ -35,12 +26,8 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.getAssetDao(owcs.functions.constructAssetRef(type, id))
+            owcs.promises.getAssetDao(owcs.functions.constructAssetRef(type, id), 4)
                 .then(function (dao) {
-                    //reply(dao.getAssociatedAssets());
-                    //reply(dao.getAssociatedAssets('assets'));
-                    //reply(dao.getAssetData('AdvCols:1415909369289'));
-                    //reply(dao.getAssetData());
                     reply(dao.get());
                 })
                 .catch(console.log);

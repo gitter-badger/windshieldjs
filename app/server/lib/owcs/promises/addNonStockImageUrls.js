@@ -1,12 +1,17 @@
 var Promise = require('bluebird'),
     request = require('request-promise'),
     _ = require('lodash'),
-    requestAssetsFromRefs = require('./requestAssetsFromRefs'),
-    parseAssetData = require('../functions/parseAssetData');
+    requestAssetsFromRefs = require('./requestAssetsFromRefs');
 
-module.exports = function (parsed) {
+module.exports = function (data) {
     return new Promise(function (resolve, reject) {
-        var reqUrls = _(parsed.assetData).filter(function (v){ return /^CARSNonStockImage:[0-9]{13}$/.test(v.id);}).map(function (v) { var rtn = {}; rtn[v.id] = 'http://services-ft.cars.com/MediaInquiryService/1.0/rest/media/' + v.attributes.externalid; return rtn; }).unique().value(),
+        var reqUrls = _(data.assetData).filter(function (v){
+                return /^CARSNonStockImage:[0-9]{13}$/.test(v.id);
+            }).map(function (v) {
+                var rtn = {};
+                rtn[v.id] = 'http://services-ft.cars.com/MediaInquiryService/1.0/rest/media/' + v.attributes.externalid;
+                return rtn;
+            }).unique().value(),
             requests,
             a = {};
         reqUrls = _.transform(reqUrls, function (a, v, k) { a[_.keys(v)[0]] = _.values(v)[0]; }, a);
@@ -30,11 +35,11 @@ module.exports = function (parsed) {
             });
         });
 
-        Promise.all(requests).then(function (data) {
-            parsed.nonStockImageUrls = _.map(data, function (v) {
-                return 'http://lpimages-st.cars.com/stock/1170x1170/' + v.media[0].URI;
+        Promise.all(requests).then(function (results) {
+            data.nonStockImageUrls = _.map(results, function (v) {
+                return 'http://lpimages-st.cars.com/stock/1170x1170' + v.media[0].URI;
             });
-            resolve(parsed);
+            resolve(data);
         });
 
     });

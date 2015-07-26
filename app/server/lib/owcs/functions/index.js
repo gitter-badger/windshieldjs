@@ -7,5 +7,5 @@ module.exports = {
     transformAttributes: require('./transformAttributes'),
     findAssetAssociations: require('./findAssetAssociations'),
     parseAssetData: require('./parseAssetData'),
-    getReferencedAssetRefs: require('./getReferencedAssetRefs')
+    getAssetRefs: require('./getAssetRefs')
 };
