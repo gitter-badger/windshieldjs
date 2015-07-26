@@ -4,6 +4,9 @@ var Promise = require('bluebird'),
     fs = require('fs'),
     path = require('path');
 
+/**
+ * TODO: refactor and break this thing up
+ */
 
 module.exports = function (config) {
     return {
