@@ -8,6 +8,44 @@ var path = require('path'),
 
 module.exports = function (server) {
 
+    server.route({
+        method: 'GET',
+        path: '/cs/Sites',
+        handler: function (req, reply) {
+            var lookuppage = req.query.lookuppage;
+            owcs.promises.authenticate().then(function (ticket) {
+                if (ticket != null) {
+                    var requestUrl = config.owcs.host + '/cs/REST/sites/www-cars-com/types/Page/search';
+                    request({
+                        headers: {
+                            'accept': 'application/json;charset=utf-8',
+                            'pragma': 'auth-redirect=false'
+                        },
+                        method: 'GET',
+                        url: requestUrl,
+                        qs: {
+                            multiticket: ticket,
+                            'field:Webreference:wildcard': '*' + lookuppage + '*'
+                        },
+                        transform: function (body) {
+                            try {
+                                return JSON.parse(body);
+                            } catch (e) {
+                                reject(e);
+                            }
+                        }
+                    }).then(function (data) {
+                        owcs.promises.getAssetDao(data.assetinfo[0].id, 4)
+                            .then(controller.layout.oneColumn.render(reply))
+                            .catch(function (error) {
+                                logger.error(error);
+                            });
+                    }).catch(logger.error);
+                }
+            }).catch(logger.error);
+        }
+    });
+
     // example of rendering the news page - minus the global nav for now
     server.route({
         method: 'GET',
@@ -19,7 +57,7 @@ module.exports = function (server) {
             //reply('');
 
             owcs.promises.getAssetDao('Page:1415909398642', 4)
-                .then(controller.layout.oneColumn.render(reply, 'layout/OneColumn'))
+                .then(controller.layout.oneColumn.render(reply))
                 .catch(logger.error);
         }
     });
