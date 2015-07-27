@@ -14,8 +14,9 @@ module.exports = function (server) {
         handler: function (req, reply) {
             var lookuppage = req.query.lookuppage;
             owcs.promises.authenticate().then(function (ticket) {
+                var requestUrl;
                 if (ticket != null) {
-                    var requestUrl = config.owcs.host + '/cs/REST/sites/www-cars-com/types/Page/search';
+                    requestUrl = config.owcs.host + '/cs/REST/sites/www-cars-com/types/Page/search';
                     request({
                         headers: {
                             'accept': 'application/json;charset=utf-8',
@@ -31,15 +32,13 @@ module.exports = function (server) {
                             try {
                                 return JSON.parse(body);
                             } catch (e) {
-                                reject(e);
+                                logger.error(e);
                             }
                         }
                     }).then(function (data) {
                         owcs.promises.getAssetDao(data.assetinfo[0].id, 4)
                             .then(controller.layout.oneColumn.render(reply))
-                            .catch(function (error) {
-                                logger.error(error);
-                            });
+                            .catch(logger.error);
                     }).catch(logger.error);
                 }
             }).catch(logger.error);
