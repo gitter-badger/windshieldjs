@@ -3,11 +3,11 @@ var Promise = require('bluebird'),
     handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path'),
-    config = require('../../../config.json'),
+    config = require('../../config.json'),
     owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs.host);
 
 /**
- * TODO: refactor and break this thing up
+ * TODO: this is for PoC only ... break this thing up!
  */
 
 module.exports = function (config) {
@@ -59,7 +59,7 @@ module.exports = function (config) {
 
                     parsed.slots.push(asset);
 
-                    return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'server', 'views', 'templates', 'partials', assocDao.prop('subtype'), 'default.html'), 'utf-8').then(function (source) {
+                    return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'view', 'templates', 'partials', assocDao.prop('subtype'), 'default.html'), 'utf-8').then(function (source) {
                         return new Promise(function (resolve, reject) {
                             resolve({
                                 name: assocDao.prop('subtype'),

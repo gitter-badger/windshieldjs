@@ -11,7 +11,7 @@ module.exports = function (server) {
         engines: {
             html: require('handlebars')
         },
-        relativeTo: path.join(__dirname, 'server', 'views'),
+        relativeTo: path.join(__dirname, 'view'),
         path: 'templates',
         helpersPath: 'helpers'
     });
