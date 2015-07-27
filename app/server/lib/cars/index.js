@@ -8,7 +8,7 @@ var Promise = require('bluebird'),
  * TODO: refactor and break this thing up
  */
 
-module.exports = function (config) {
+module.exports = function (config, owcs) {
     return {
         renderPage: function (reply, view) {
 
@@ -16,18 +16,18 @@ module.exports = function (config) {
 
                 var parsed = {};
 
-                parsed.title = assetDao.getAttribute('title');
+                parsed.title = assetDao.attr('title');
                 parsed.slots = [];
 
                 Promise.all(_.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
-                    var assetData = assetDao.getAssetData(assetRef),
+                    var assocDao = owcs.functions.createAssetDao(assetDao.getAssetData(assetRef)),
                         asset = {},
                         recs = [];
 
-                    asset.name = assetData.name;
-                    asset.subtype = assetData.subtype;
+                    asset.name = assocDao.prop('name');
+                    asset.subtype = assocDao.prop('subtype');
 
-                    switch (assetData.subtype) {
+                    switch (asset.subtype) {
                         case 'CuratedArticles':
                             asset.items = _.map(assetDao.getManualrecs(assetRef), function (item) {
                                 var r = {},
@@ -40,25 +40,25 @@ module.exports = function (config) {
                             });
                             break;
                         case 'Ad':
-                            asset.adSlot = assetData.attributes.adSlot;
-                            asset.adSize = assetData.attributes.adSize;
+                            asset.adSlot = assocDao.attr('adSlot');
+                            asset.adSize = assocDao.attr('adSize');
                             break;
                         case 'CuratedTag':
-                            asset.title = assetData.attributes.title;
+                            asset.title = assocDao.attr('title');
                             break;
                         case 'Article':
-                            asset.headline = assetData.attributes.headline;
-                            asset.body = assetData.attributes.body;
-                            asset.href = assetData.attributes.Webreference[0].url;
+                            asset.headline = assocDao.attr('headline');
+                            asset.body = assocDao.attr('body');
+                            asset.href = assocDao.attr('Webreference')[0].url;
                             break;
                     }
 
                     parsed.slots.push(asset);
 
-                    return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'server', 'views', 'templates', 'partials', assetData.subtype, 'default.html'), 'utf-8').then(function (source) {
+                    return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'server', 'views', 'templates', 'partials', assocDao.prop('subtype'), 'default.html'), 'utf-8').then(function (source) {
                         return new Promise(function (resolve, reject) {
                             resolve({
-                                name: assetData.subtype,
+                                name: assocDao.prop('subtype'),
                                 source: source
                             });
                         });

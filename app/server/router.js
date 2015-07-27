@@ -3,7 +3,7 @@ var path = require('path'),
     _ = require('lodash'),
     config = require('../../config.json'),
     owcs = require('./lib/owcs')(config.owcs.host),
-    cars = require('./lib/cars')(config);
+    cars = require('./lib/cars')(config, owcs);
 
 module.exports = function (server) {
 
