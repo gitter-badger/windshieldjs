@@ -19,7 +19,7 @@ module.exports = function (server) {
             //reply('');
 
             owcs.promises.getAssetDao('Page:1415909398642', 4)
-                .then(controller.renderPage(reply, 'layouts/OneColumn'))
+                .then(controller.layout.OneColumn.render(reply, 'layout/OneColumn'))
                 .catch(logger.error);
         }
     });

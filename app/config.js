@@ -12,8 +12,8 @@ module.exports = function (server) {
             html: require('handlebars')
         },
         relativeTo: path.join(__dirname, 'view'),
-        path: 'templates',
-        helpersPath: 'helpers'
+        path: 'template',
+        helpersPath: 'helper'
     });
 
 };
