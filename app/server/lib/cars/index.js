@@ -44,10 +44,12 @@ module.exports = function (config, owcs) {
                             asset.adSize = assocDao.attr('adSize');
                             break;
                         case 'CuratedTag':
+                            // TODO: add more data
                             asset.title = assocDao.attr('title');
                             break;
                         case 'Article':
                             asset.headline = assocDao.attr('headline');
+                            // TODO: parse, request and add embedded assets in body
                             asset.body = assocDao.attr('body');
                             asset.href = assocDao.attr('Webreference')[0].url;
                             break;
