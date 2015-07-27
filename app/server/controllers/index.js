@@ -2,13 +2,15 @@ var Promise = require('bluebird'),
     _ = require('lodash'),
     handlebars = require('handlebars'),
     fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    config = require('../../../config.json'),
+    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs.host);
 
 /**
  * TODO: refactor and break this thing up
  */
 
-module.exports = function (config, owcs) {
+module.exports = function (config) {
     return {
         renderPage: function (reply, view) {
 

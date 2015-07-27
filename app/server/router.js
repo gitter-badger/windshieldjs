@@ -1,9 +1,9 @@
 var path = require('path'),
     request = require('request-promise'),
     _ = require('lodash'),
-    config = require('../../config.json'),
-    owcs = require('./lib/owcs')(config.owcs.host),
-    cars = require('./lib/cars')(config, owcs);
+    config = require(path.join('..', '..', 'config.json')),
+    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs.host),
+    controllers = require('./controllers')(config);
 
 module.exports = function (server) {
 
@@ -13,7 +13,7 @@ module.exports = function (server) {
         path: '/',
         handler: function (req, reply) {
             owcs.promises.getAssetDao('Page:1415909398642', 4)
-                .then(cars.renderPage(reply, 'layouts/OneColumn'))
+                .then(controllers.renderPage(reply, 'layouts/OneColumn'))
                 .catch(console.log);
         }
     });
