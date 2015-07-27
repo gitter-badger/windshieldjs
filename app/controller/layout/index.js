@@ -1,3 +1,3 @@
 module.exports = {
-    OneColumn: require('./OneColumn')
+    oneColumn: require('./oneColumn')
 };

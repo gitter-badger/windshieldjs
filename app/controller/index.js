@@ -1,3 +1,4 @@
 module.exports = {
-    layout: require('./layout')
+    layout: require('./layout'),
+    partial: require('./partial')
 };
