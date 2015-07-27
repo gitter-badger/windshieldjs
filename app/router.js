@@ -20,7 +20,7 @@ module.exports = function (server) {
 
             owcs.promises.getAssetDao('Page:1415909398642', 4)
                 .then(controller.renderPage(reply, 'layouts/OneColumn'))
-                .catch(console.log);
+                .catch(logger.error);
         }
     });
 
@@ -36,7 +36,7 @@ module.exports = function (server) {
                 .then(function (dao) {
                     reply(dao.get());
                 })
-                .catch(console.log);
+                .catch(logger.error);
         }
     });
 
@@ -50,7 +50,7 @@ module.exports = function (server) {
 
             owcs.promises.requestAsset(owcs.functions.constructAssetRef(type, id))
                 .then(reply)
-                .catch(console.log);
+                .catch(logger.error);
 
         }
     });
@@ -62,7 +62,7 @@ module.exports = function (server) {
         handler: function (req, reply) {
             owcs.promises.requestNavigation().then(function (data) {
                 reply(data);
-            }).catch(console.log);
+            }).catch(logger.error);
 
         }
     });
