@@ -1,0 +1,19 @@
+var winston = require('winston'),
+    config = require('../config.json'),
+    path = require('path');
+
+module.exports = new (winston.Logger)({
+    transports: [
+        new (winston.transports.Console)(),
+        new (winston.transports.File)({
+            name: 'info-log',
+            filename: path.join(config.approot, 'logs', 'info.log'),
+            level: 'info'
+        }),
+        new (winston.transports.File)({
+            name: 'error-log',
+            filename: path.join(config.approot, 'logs', 'error.log'),
+            level: 'error'
+        })
+    ]
+});

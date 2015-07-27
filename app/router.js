@@ -2,16 +2,22 @@ var path = require('path'),
     request = require('request-promise'),
     _ = require('lodash'),
     config = require('../config.json'),
-    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs.host),
-    controller = require('./controller')(config);
+    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
+    controller = require('./controller'),
+    logger = require('./logger');
 
 module.exports = function (server) {
 
     // example of rendering the news page - minus the global nav for now
     server.route({
         method: 'GET',
-        path: '/',
+        path: '/news',
         handler: function (req, reply) {
+
+            // TODO: figure out why the hell hapi route handlers are all getting called twice
+            //logger.info('why is this handler getting called twice??');
+            //reply('');
+
             owcs.promises.getAssetDao('Page:1415909398642', 4)
                 .then(controller.renderPage(reply, 'layouts/OneColumn'))
                 .catch(console.log);
