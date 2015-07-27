@@ -20,11 +20,7 @@ module.exports = {
 
             Promise.all(_.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
                 var assocDao = owcs.functions.createAssetDao(assetDao.getAssetData(assetRef)),
-                    asset = {};
-
-                asset.subtype = assocDao.prop('subtype');
-
-                asset = partial[_.camelCase(asset.subtype)](assocDao, assetDao);
+                    asset = partial[_.camelCase(assocDao.prop('subtype'))](assocDao, assetDao);
 
                 parsed.slots.push(asset);
 
