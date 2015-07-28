@@ -1,5 +1,4 @@
 var path = require('path'),
-    request = require('request-promise'),
     _ = require('lodash'),
     config = require('../config.json'),
     owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
