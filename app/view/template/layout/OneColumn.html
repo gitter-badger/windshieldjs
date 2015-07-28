@@ -29,9 +29,9 @@
 
                 <h1>{{title}}</h1>
 
-                {{#each slots}}
+                {{#each assoc}}
 
-                {{> (lookup . 'subtype') }}
+                {{> (lookup . 'partial') }}
 
                 {{/each}}
 

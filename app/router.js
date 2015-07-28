@@ -13,7 +13,7 @@ module.exports = function (server) {
         handler: function (req, reply) {
             owcs.promises.getAssetRefFromWebreference(req.query.lookuppage)
                 .then(_.partialRight(owcs.promises.getAssetDao, 4))
-                .then(controller.layout.oneColumn.render(reply))
+                .then(controller.layout.render(reply, req.query.lookuppage))
                 .catch(logger.error);
         }
     });

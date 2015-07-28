@@ -1,3 +1,4 @@
 module.exports = {
-    oneColumn: require('./oneColumn')
+    render: require('./render'),
+    oneColumnPageLayout: require('./oneColumnPageLayout')
 };
