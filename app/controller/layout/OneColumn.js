@@ -6,8 +6,7 @@ var Promise = require('bluebird'),
     config = require('../../../config.json'),
     owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
     model = require('../../model'),
-    logger = require('../../logger'),
-    Boom = require('boom');
+    logger = require('../../logger');
 
 module.exports = {
     render: function (reply) {
