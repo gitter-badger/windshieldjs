@@ -5,7 +5,7 @@ var Promise = require('bluebird'),
     path = require('path'),
     config = require('../../../config.json'),
     owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
-    subtypeCtrl = require('../subtype'),
+    model = require('../../model'),
     logger = require('../../logger'),
     Boom = require('boom');
 
@@ -23,7 +23,7 @@ module.exports = {
                     asset;
 
                 try {
-                    asset = subtypeCtrl[_.camelCase(assocDao.prop('subtype'))](assocDao, assetDao);
+                    asset = new model[assocDao.prop('subtype')](assocDao, assetDao);
                 } catch (e) {
                     asset = { subtype: 'NotFound' };
                 }
