@@ -12,35 +12,10 @@ module.exports = function (server) {
         method: 'GET',
         path: '/cs/Sites',
         handler: function (req, reply) {
-            var lookuppage = req.query.lookuppage;
-            owcs.promises.authenticate().then(function (ticket) {
-                var requestUrl;
-                if (ticket != null) {
-                    requestUrl = config.owcs.host + '/cs/REST/sites/www-cars-com/types/Page/search';
-                    request({
-                        headers: {
-                            'accept': 'application/json;charset=utf-8',
-                            'pragma': 'auth-redirect=false'
-                        },
-                        method: 'GET',
-                        url: requestUrl,
-                        qs: {
-                            multiticket: ticket,
-                            'field:Webreference:wildcard': '*' + lookuppage + '*'
-                        },
-                        transform: function (body) {
-                            try {
-                                return JSON.parse(body);
-                            } catch (e) {
-                                logger.error(e);
-                            }
-                        }
-                    }).then(function (data) {
-                        owcs.promises.getAssetDao(data.assetinfo[0].id, 4)
-                            .then(controller.layout.oneColumn.render(reply))
-                            .catch(logger.error);
-                    }).catch(logger.error);
-                }
+            owcs.promises.getAssetRefFromWebreference(req.query.lookuppage).then(function (assetRef) {
+                owcs.promises.getAssetDao(assetRef, 4)
+                    .then(controller.layout.oneColumn.render(reply))
+                    .catch(logger.error);
             }).catch(logger.error);
         }
     });
