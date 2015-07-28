@@ -8,7 +8,8 @@
     "start": "nodemon -e js,html,json app --username renderer --password asdqwe123"
   },
   "author": "Mac Heller-Ogden",
-  "license": "ISC",
+  "license": "Commercial",
+  "private": true,
   "dependencies": {
     "hapi": "^8.8.0",
     "handlebars": "^3.0.3",
