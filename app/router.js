@@ -12,11 +12,10 @@ module.exports = function (server) {
         method: 'GET',
         path: '/cs/Sites',
         handler: function (req, reply) {
-            owcs.promises.getAssetRefFromWebreference(req.query.lookuppage).then(function (assetRef) {
-                owcs.promises.getAssetDao(assetRef, 4)
-                    .then(controller.layout.oneColumn.render(reply))
-                    .catch(logger.error);
-            }).catch(logger.error);
+            owcs.promises.getAssetRefFromWebreference(req.query.lookuppage)
+                .then(_.partialRight(owcs.promises.getAssetDao, 4))
+                .then(controller.layout.oneColumn.render(reply))
+                .catch(logger.error);
         }
     });
 
