@@ -18,22 +18,6 @@ module.exports = function (server) {
         }
     });
 
-    // example of rendering the news page - minus the global nav for now
-    server.route({
-        method: 'GET',
-        path: '/news',
-        handler: function (req, reply) {
-
-            // TODO: figure out why the hell hapi route handlers are all getting called twice
-            //logger.info('why is this handler getting called twice??');
-            //reply('');
-
-            owcs.promises.getAssetDao('Page:1415909398642', 4)
-                .then(controller.layout.oneColumn.render(reply))
-                .catch(logger.error);
-        }
-    });
-
     // parsed asset data
     server.route({
         method: 'GET',
@@ -61,18 +45,6 @@ module.exports = function (server) {
             owcs.promises.requestAsset(owcs.functions.constructAssetRef(type, id))
                 .then(reply)
                 .catch(logger.error);
-
-        }
-    });
-
-    // navigation data
-    server.route({
-        method: 'GET',
-        path: '/nav',
-        handler: function (req, reply) {
-            owcs.promises.requestNavigation().then(function (data) {
-                reply(data);
-            }).catch(logger.error);
 
         }
     });
