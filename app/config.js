@@ -1,9 +1,17 @@
 var path = require('path'),
-    config = require('../config.json');
+    config = require('../config.json'),
+    owcs,
+    owcsPluginMis;
+
+config.approot = path.join(__dirname, '..');
+
+owcs = require(path.join(config.approot, 'lib', 'owcs'));
+owcsPluginMis = require(path.join(config.approot, 'lib', 'owcs-plugin-mis'));
 
 module.exports = function (server) {
 
-    config.approot = path.join(__dirname, '..');
+    owcs.configure(config.owcs);
+    owcs.registerPlugin(owcsPluginMis);
 
     server.connection({ port: config.port });
 

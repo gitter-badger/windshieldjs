@@ -1,7 +1,7 @@
 var path = require('path'),
     _ = require('lodash'),
     config = require('../config.json'),
-    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
+    owcs = require(path.join(config.approot, 'lib', 'owcs')),
     controller = require('./controller'),
     logger = require('./logger');
 

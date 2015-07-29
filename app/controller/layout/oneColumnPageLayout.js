@@ -4,13 +4,13 @@ var Promise = require('bluebird'),
     fs = require('fs'),
     path = require('path'),
     config = require('../../../config.json'),
-    owcs = require(path.join(config.approot, 'lib', 'owcs'))(config.owcs),
+    owcs = require(path.join(config.approot, 'lib', 'owcs')),
     model = require('../../model'),
     logger = require('../../logger'),
     generatePartialName = require('../../util/generatePartialName');
 
 module.exports = function (reply, assetDao) {
-    var layout = new model.OneColumnPageLayout(assetDao);
+    var layout = new model.layout.OneColumnPageLayout(assetDao);
     Promise.all(_.map(layout.assoc, function (asset) {
         return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'view', 'template', 'subtype', asset.subtype, 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
