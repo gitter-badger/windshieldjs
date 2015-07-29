@@ -24,6 +24,6 @@ module.exports = function (reply, assetDao) {
         _.forEach(partials, function (partial) {
             handlebars.registerPartial(partial.name, partial.source);
         });
-        reply.view('layout/OneColumnPageLayout', layout);
+        reply.view('layout/NoMarginOneColumnPageLayout', layout);
     });
 };

@@ -1,4 +1,5 @@
 module.exports = {
     render: require('./render'),
-    oneColumnPageLayout: require('./oneColumnPageLayout')
+    oneColumnPageLayout: require('./oneColumnPageLayout'),
+    noMarginOneColumnPageLayout: require('./noMarginOneColumnPageLayout')
 };
