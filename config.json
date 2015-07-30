@@ -2,5 +2,8 @@
     "port": 1337,
     "owcs": {
         "host": "http://mgmt-www-ft.cars.com"
+    },
+    "services": {
+        "host": "http://services-ft.cars.com"
     }
 }

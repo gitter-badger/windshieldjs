@@ -7,8 +7,8 @@ config.appDir = path.join(config.appRoot, 'app');
 config.componentsDir = path.join(config.appDir, 'components');
 
 owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest'));
-owcsRest.configure(config.owcs);
-owcsRest.registerPlugin(require(path.join(config.appRoot, 'lib', 'owcs-rest-plugin-cars-mediainquiryservice')));
+owcsRest.setup(config.owcs);
+owcsRest.registerPlugin(require(path.join(config.appRoot, 'lib', 'owcs-rest-plugin-cars'))({ services: config.services }));
 
 module.exports = function (server) {
 
