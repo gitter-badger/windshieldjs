@@ -6,7 +6,7 @@ var Promise = require('bluebird'),
     config = require('../../../../config.json'),
     Model = require('./NoMarginOneColumnPageLayoutModel'),
     logger = require('../../../logger'),
-    maps = require('../../../maps.json');
+    maps = require('../../../resources/maps.json');
 
 module.exports = function (reply, assetDao) {
     var layout = new Model(assetDao);

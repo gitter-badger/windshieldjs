@@ -5,15 +5,12 @@ var Promise = require('bluebird'),
     owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest')),
     logger = require('../../../logger'),
     utils = require('../../../utils'),
-    maps = require('../../../maps.json');
+    maps = require('../../../resources/maps.json');
 
 module.exports = function (assetDao) {
     var _this = this;
     this.title = assetDao.attr('title');
     this.assoc = [];
-
-    //var subtypePath = subtypePathMap[assocDao.prop('subtype')];
-
     _.forEach(assetDao.getAssociatedAssets('assets'), function (assetRef) {
         var assocDao = new owcsRest.dao.AssetDao(assetDao.getAssetData(assetRef)),
             asset,
