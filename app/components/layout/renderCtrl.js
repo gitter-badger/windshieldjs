@@ -1,7 +1,7 @@
 var Promise = require('bluebird'),
     path = require('path'),
     _ = require('lodash'),
-    logger = require('../../logger');
+    logger = require('../../utils/logger');
 
 module.exports = function (reply, webreference) {
     return function (assetDao) {

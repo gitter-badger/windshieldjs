@@ -5,13 +5,12 @@ var Promise = require('bluebird'),
     path = require('path'),
     config = require('../../../../config.json'),
     Model = require('./NoMarginOneColumnPageLayoutModel'),
-    logger = require('../../../logger'),
-    maps = require('../../../resources/maps.json');
+    paths = require('../../../resources/paths.json');
 
 module.exports = function (reply, assetDao) {
     var layout = new Model(assetDao);
     Promise.all(_.map(layout.assoc, function (asset) {
-        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, maps.paths[asset.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
+        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[asset.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     name: asset.partial,

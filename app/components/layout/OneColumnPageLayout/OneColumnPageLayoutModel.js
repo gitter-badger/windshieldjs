@@ -3,9 +3,8 @@ var Promise = require('bluebird'),
     path = require('path'),
     config = require('../../../../config.json'),
     owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest')),
-    logger = require('../../../logger'),
     utils = require('../../../utils'),
-    maps = require('../../../resources/maps.json');
+    paths = require('../../../resources/paths.json');
 
 module.exports = function (assetDao) {
     var _this = this;
@@ -16,7 +15,7 @@ module.exports = function (assetDao) {
             asset,
             AssocModel;
         try {
-            AssocModel = require(path.join('..', '..', maps.paths[assocDao.prop('subtype')], assocDao.prop('subtype') + 'Model'));
+            AssocModel = require(path.join('..', '..', paths[assocDao.prop('subtype')], assocDao.prop('subtype') + 'Model'));
             asset = new AssocModel(assocDao, assetDao);
             asset.partial = utils.generatePartialNameFromAssetRef(asset.subtype, asset.id);
         } catch (e) {

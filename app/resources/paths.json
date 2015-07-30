@@ -1,0 +1,9 @@
+{
+    "Ad": "common/Ad",
+    "NoMarginOneColumnPageLayout": "layout/NoMarginOneColumnPageLayout",
+    "OneColumnPageLayout": "layout/OneColumnPageLayout",
+    "Article": "news/Article",
+    "CuratedArticles": "news/CuratedArticles",
+    "CuratedTag": "news/CuratedTag",
+    "LatestPublishedArticles": "news/LatestPublishedArticles"
+}
