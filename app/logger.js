@@ -7,12 +7,12 @@ module.exports = new (winston.Logger)({
         new (winston.transports.Console)(),
         new (winston.transports.File)({
             name: 'info-log',
-            filename: path.join(config.approot, 'logs', 'info.log'),
+            filename: path.join(config.appRoot, 'logs', 'info.log'),
             level: 'info'
         }),
         new (winston.transports.File)({
             name: 'error-log',
-            filename: path.join(config.approot, 'logs', 'error.log'),
+            filename: path.join(config.appRoot, 'logs', 'error.log'),
             level: 'error'
         })
     ]

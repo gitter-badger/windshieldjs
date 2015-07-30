@@ -3,16 +3,15 @@ var Promise = require('bluebird'),
     handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path'),
-    config = require('../../../config.json'),
-    owcs = require(path.join(config.approot, 'lib', 'owcs')),
-    model = require('../../model'),
-    logger = require('../../logger'),
-    generatePartialName = require('../../util/generatePartialName');
+    config = require('../../../../config.json'),
+    Model = require('./NoMarginOneColumnPageLayoutModel'),
+    logger = require('../../../logger'),
+    maps = require('../../../maps.json');
 
 module.exports = function (reply, assetDao) {
-    var layout = new model.layout.OneColumnPageLayout(assetDao);
+    var layout = new Model(assetDao);
     Promise.all(_.map(layout.assoc, function (asset) {
-        return Promise.promisify(fs.readFile)(path.join(config.approot, 'app', 'view', 'template', 'subtype', asset.subtype, 'default.html'), 'utf-8').then(function (source) {
+        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, maps.paths[asset.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     name: asset.partial,
@@ -24,6 +23,6 @@ module.exports = function (reply, assetDao) {
         _.forEach(partials, function (partial) {
             handlebars.registerPartial(partial.name, partial.source);
         });
-        reply.view('layout/OneColumnPageLayout', layout);
+        reply.view('components/layout/OneColumnPageLayout/OneColumnPageLayoutTemplate', layout);
     });
 };

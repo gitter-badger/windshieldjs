@@ -1,8 +1,8 @@
 var path = require('path'),
     _ = require('lodash'),
     config = require('../config.json'),
-    owcs = require(path.join(config.approot, 'lib', 'owcs')),
-    controller = require('./controller'),
+    owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest')),
+    components = require('./components'),
     logger = require('./logger');
 
 module.exports = function (server) {
@@ -11,9 +11,9 @@ module.exports = function (server) {
         method: 'GET',
         path: '/cs/Sites',
         handler: function (req, reply) {
-            owcs.promises.getAssetRefFromWebreference(req.query.lookuppage)
-                .then(_.partialRight(owcs.promises.getAssetDao, 4))
-                .then(controller.layout.render(reply, req.query.lookuppage))
+            owcsRest.promises.getAssetRefFromWebreference(req.query.lookuppage)
+                .then(_.partialRight(owcsRest.promises.getAssetDao, 4))
+                .then(components.layout.renderCtrl(reply, req.query.lookuppage))
                 .catch(logger.error);
         }
     });
@@ -26,7 +26,7 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.getAssetDao(owcs.functions.constructAssetRef(type, id), 4)
+            owcsRest.promises.getAssetDao(owcsRest.functions.constructAssetRef(type, id), 4)
                 .then(function (dao) {
                     reply(dao.get());
                 })
@@ -42,7 +42,7 @@ module.exports = function (server) {
             var type = req.params.type,
                 id = req.params.id;
 
-            owcs.promises.requestAsset(owcs.functions.constructAssetRef(type, id))
+            owcsRest.promises.requestAsset(owcsRest.functions.constructAssetRef(type, id))
                 .then(reply)
                 .catch(logger.error);
 
@@ -55,7 +55,7 @@ module.exports = function (server) {
         path: '/static/{param*}',
         handler: {
             directory: {
-                path: path.join(config.approot, '..', 'www-cars-com-static', 'dist')
+                path: path.join(config.appRoot, '..', 'www-cars-com-static', 'dist')
             }
         }
     });
