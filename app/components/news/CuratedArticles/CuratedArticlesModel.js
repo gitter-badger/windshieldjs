@@ -10,7 +10,7 @@ module.exports = function (data) {
             carouselMedia = item.associatedAssets.carouselMedia ? item.associatedAssets.carouselMedia[0] : false,
             mainMedia = item.associatedAssets.mainMedia ? item.associatedAssets.mainMedia[0] : false;
         r.image = data.nonStockImageUrls[carouselMedia ? carouselMedia : mainMedia];
-        r.name = item.name;
+        r.name = item.attributes.headline;
         r.href = item.attributes.Webreference[0].url;
         return r;
     });
