@@ -7,13 +7,13 @@ var Promise = require('bluebird'),
     Model = require('./OneColumnPageLayoutModel'),
     paths = require('../../../resources/paths.json');
 
-module.exports = function (reply, assetDao) {
-    var layout = new Model(assetDao);
-    Promise.all(_.map(layout.assoc, function (asset) {
-        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[asset.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
+module.exports = function (reply, data) {
+    var layout = new Model(data);
+    Promise.all(_.map(layout.assoc, function (item) {
+        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[item.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
-                    name: asset.partial,
+                    name: item.partial,
                     source: source
                 });
             });

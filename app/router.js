@@ -2,6 +2,7 @@ var path = require('path'),
     _ = require('lodash'),
     config = require('../config.json'),
     owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest')),
+    owcsAdapter = require('./adapters/owcs'),
     components = require('./components'),
     logger = require('./utils/logger');
 
@@ -11,9 +12,8 @@ module.exports = function (server) {
         method: 'GET',
         path: '/cs/Sites',
         handler: function (req, reply) {
-            owcsRest.promises.getAssetRefFromWebreference(req.query.lookuppage)
-                .then(_.partialRight(owcsRest.promises.getAssetDao, 4))
-                .then(components.layout.renderCtrl(reply, req.query.lookuppage))
+            owcsAdapter.getDataFromWebref(req.query.lookuppage)
+                .then(components.layout.renderCtrl(reply))
                 .catch(logger.error);
         }
     });

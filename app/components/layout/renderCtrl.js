@@ -1,16 +1,14 @@
 var Promise = require('bluebird'),
-    path = require('path'),
-    _ = require('lodash'),
-    logger = require('../../utils/logger');
+    _ = require('lodash');
 
-module.exports = function (reply, webreference) {
-    return function (assetDao) {
+module.exports = function (reply) {
+    return function (data) {
         return new Promise(function (resolve, reject) {
-            var layout = _.findWhere(assetDao.attr('Webreference'), { url: webreference }).template.split('/').pop();
+            var layout = data.layout;
             try {
-                resolve(require('./' + layout + '/' + _.camelCase(layout) + 'Ctrl')(reply, assetDao));
+                resolve(require('./' + layout + '/' + _.camelCase(layout) + 'Ctrl')(reply, data));
             } catch (e) {
-                reject('layout `' + layout + '` not found');
+                reject('layout `' + layout + '` not found. ' + e);
             }
         });
     };

@@ -1,15 +1,15 @@
 var _ = require('lodash');
 
-module.exports = function (assetDao, rootDao) {
-    this.id = assetDao.prop('id');
-    this.name = assetDao.prop('name');
-    this.subtype = assetDao.prop('subtype');
-
-    this.items = _.map(rootDao.getManualrecs(assetDao.prop('id')), function (item) {
+module.exports = function (data) {
+    this.partial = data.partial;
+    this.id = data.id;
+    this.name = data.name;
+    this.subtype = data.subtype;
+    this.items = _.map(data.recs, function (item) {
         var r = {},
             carouselMedia = item.associatedAssets.carouselMedia ? item.associatedAssets.carouselMedia[0] : false,
             mainMedia = item.associatedAssets.mainMedia ? item.associatedAssets.mainMedia[0] : false;
-        r.image = rootDao.getNonStockImageUrl(carouselMedia ? carouselMedia : mainMedia);
+        r.image = data.nonStockImageUrls[carouselMedia ? carouselMedia : mainMedia];
         r.name = item.name;
         r.href = item.attributes.Webreference[0].url;
         return r;
