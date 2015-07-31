@@ -1,10 +1,10 @@
 var _ = require('lodash');
 
 module.exports = function (data) {
+    this.componentName = data.componentName;
     this.partial = data.partial;
     this.id = data.id;
     this.name = data.name;
-    this.subtype = data.subtype;
     this.items = _.map(data.recs, function (item) {
         var r = {},
             carouselMedia = item.associatedAssets.carouselMedia ? item.associatedAssets.carouselMedia[0] : false,

@@ -10,7 +10,7 @@ var Promise = require('bluebird'),
 module.exports = function (reply, data) {
     var layout = new Model(data);
     Promise.all(_.map(layout.assoc, function (item) {
-        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[item.subtype], 'templates', 'default.html'), 'utf-8').then(function (source) {
+        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[item.componentName], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     name: item.partial,

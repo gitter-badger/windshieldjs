@@ -7,10 +7,10 @@ module.exports = function (data) {
     this.assoc = _.map(data.assoc, function (item) {
         var AssocModel;
         try {
-            AssocModel = require(path.join('..', '..', paths[item.subtype], item.subtype + 'Model'));
+            AssocModel = require(path.join('..', '..', paths[item.componentName], item.componentName + 'Model'));
             return new AssocModel(item);
         } catch (e) {
-            return { subtype: 'NotFound' };
+            return { componentName: 'NotFound' };
         }
     });
 };
