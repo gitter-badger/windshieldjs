@@ -1,8 +1,9 @@
 var config = require('../../config.json'),
     mkdirp = require('mkdirp'),
-    snapshotInterval = 60 * 1000;
+    snapshotInterval = 60 * 1000,
+    isDev = (process.env.NODE_ENV !== 'production');
 
-if (config.profile) {
+if (isDev) {
     global.wtf = require(config.profiling.wtfPath);
     mkdirp('./profile_data', function (err) {
         if (!err) {
@@ -24,12 +25,12 @@ module.exports = {
     scope: function (scopeName, exec) {
         var renderScope;
 
-        if (config.profile) {
+        if (isDev) {
             renderScope = wtf.trace.enterScope(scopeName);
         }
 
         exec(function () {
-            if (config.profile) {
+            if (isDev) {
                 wtf.trace.leaveScope(renderScope);
             }
         });

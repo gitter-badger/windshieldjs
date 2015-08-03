@@ -5,7 +5,6 @@ var path = require('path'),
 config.appRoot = path.join(__dirname, '..');
 config.appDir = path.join(config.appRoot, 'app');
 config.componentsDir = path.join(config.appDir, 'components');
-config.profile = (process.env.NODE_PROFILE === 'wtf');
 
 owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest'));
 owcsRest.setup(config.owcs);
