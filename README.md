@@ -8,7 +8,9 @@ A Node.js Rendering Platform
 
 This project must be cloned in same directory as the [www-cars-com-static](http://git.cars.com/projects/CARSCP/repos/www-cars-com-static/browse) repository. Checkout the `integration` branch on that project and then `npm install` and `gulp` it.
 
-<br>
+Also, you'll need a few global npm packages:
+
+    npm install -g nodemon node-inspector
 
 ## Install
 
@@ -24,6 +26,14 @@ npm install
 
 ```
 npm start
+```
+
+<br>
+
+## Profiling
+
+```
+npm run-script profile
 ```
 
 <br>

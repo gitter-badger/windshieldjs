@@ -3,7 +3,8 @@ var path = require('path'),
     config = require('../config.json'),
     owcsAdapter = require('./adapters/owcs'),
     components = require('./components'),
-    logger = require('./utils/logger');
+    logger = require('./utils/logger'),
+    profiler = require('./utils/profiler');
 
 module.exports = function (server) {
 
@@ -14,6 +15,20 @@ module.exports = function (server) {
             owcsAdapter.getDataFromWebref(req.query.lookuppage)
                 .then(components.layout.renderCtrl(reply))
                 .catch(logger.error);
+        }
+    });
+
+    server.route({
+        method: 'GET',
+        path: '/profile/cs/Sites',
+        handler: function (req, reply) {
+            profiler.scope('renderTime', function (done) {
+                owcsAdapter.getDataFromWebref(req.query.lookuppage)
+                    .then(components.layout.renderCtrl(reply))
+                    .catch(logger.error)
+                    .finally(done);
+            });
+
         }
     });
 

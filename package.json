@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -e js,html,json app --username renderer --password asdqwe123"
+    "start": "nodemon -e js,html,json app --username renderer --password asdqwe123",
+    "profile": "NODE_PROFILE=wtf nodemon -e js,html,json app --username renderer --password asdqwe123"
   },
   "author": "Mac Heller-Ogden",
   "license": "Commercial",
@@ -18,6 +19,7 @@
     "bluebird": "^2.9.34",
     "minimist": "^1.1.2",
     "winston": "^1.0.1",
-    "boom": "^2.8.0"
+    "boom": "^2.8.0",
+    "mkdirp": "^0.5.1"
   }
 }
