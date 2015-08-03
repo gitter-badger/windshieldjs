@@ -1,5 +1,6 @@
 var config = require('../../config.json'),
-    mkdirp = require('mkdirp');
+    mkdirp = require('mkdirp'),
+    snapshotInterval = 60 * 1000;
 
 if (config.profile) {
     global.wtf = require(config.profiling.wtfPath);
@@ -11,24 +12,25 @@ if (config.profile) {
             });
         }
         wtf.trace.start();
+        setTimeout(function tick() {
+            wtf.trace.snapshot();
+            wtf.trace.reset();
+            setTimeout(tick, snapshotInterval);
+        }, snapshotInterval);
     });
 }
 
 module.exports = {
-    scope: function (scopeName, exec, context) {
+    scope: function (scopeName, exec) {
         var renderScope;
 
-        context = (context != null) ? context : this;
-
         if (config.profile) {
-            wtf.trace.reset();
             renderScope = wtf.trace.enterScope(scopeName);
         }
 
-        exec.call(context, function () {
+        exec(function () {
             if (config.profile) {
                 wtf.trace.leaveScope(renderScope);
-                wtf.trace.snapshot();
             }
         });
 
