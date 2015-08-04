@@ -1,6 +1,10 @@
 {
     "globals": {
-        "wtf": true
+        "wtf": true,
+        "jasmine": true,
+        "describe": true,
+        "it": true,
+        "expect": true
     },
     "env": {
         "node": true,
