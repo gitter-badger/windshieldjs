@@ -5,7 +5,6 @@ var path = require('path'),
     components = require('./components'),
     logger = require('./utils/logger');
 
-
 module.exports = function (server) {
 
     server.route({

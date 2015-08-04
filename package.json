@@ -7,7 +7,7 @@
     "test": "node test",
     "start": "nodemon -e js,html,json app --username renderer --password asdqwe123",
     "prod": "NODE_ENV=production node app --username renderer --password asdqwe123",
-    "trace": "node ./tracegl app --username renderer --password asdqwe123"
+    "trace": "NODE_ENV=production node ./tracegl app --username renderer --password asdqwe123"
   },
   "author": "Mac Heller-Ogden",
   "license": "Commercial",
