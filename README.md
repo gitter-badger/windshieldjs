@@ -6,11 +6,13 @@ A Node.js Rendering Platform
 
 ## Pre-Install
 
-This project must be cloned in same directory as the [www-cars-com-static](http://git.cars.com/projects/CARSCP/repos/www-cars-com-static/browse) repository. Checkout the `integration` branch on that project and then `npm install` and `gulp` it.
+Update your `nginx.conf` (see `nginx.conf` in project root) and start nginx.
 
 Also, you'll need a few global npm packages:
 
-    npm install -g nodemon node-inspector
+    npm install -g nodemon jasmine
+
+<br>
 
 ## Install
 
@@ -30,18 +32,9 @@ npm start
 
 <br>
 
-## Profiling
-
-```
-npm run-script profile
-```
-
-<br>
-
 ## TODO
 
   - Support for query assets
   - Support for siteplan (to support navigation)
   - Request and render embedded assets
-  - Build out tasking (including test harness)
   - Publish modules currently in `lib` to private npm and pull in via package.
