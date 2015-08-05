@@ -1,6 +1,4 @@
 var path = require('path'),
-    _ = require('lodash'),
-    config = require('../config.json'),
     owcsAdapter = require('./adapters/owcs'),
     components = require('./components'),
     logger = require('./utils/logger');
@@ -59,6 +57,8 @@ module.exports = function (server) {
 
 
     /*
+    var config = require('../config.json');
+
     // static server - could just as easily do this via nginx
     server.route({
         method: 'GET',
