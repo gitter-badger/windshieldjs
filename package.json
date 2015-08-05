@@ -5,9 +5,11 @@
   "main": "app.js",
   "scripts": {
     "test": "node test",
-    "start": "nodemon -e js,html,json app --username renderer --password asdqwe123",
-    "prod": "NODE_ENV=production node app --username renderer --password asdqwe123",
-    "trace": "NODE_ENV=production node ./etc/tracegl -nolib app --username renderer --password asdqwe123"
+    "start": "nodemon -e js,html,json app",
+    "prod": "NODE_ENV=production pm2 start app -i 0",
+    "cluster": "pm2 start app -i 0",
+    "trace": "NODE_ENV=production node ./etc/tracegl -nolib app",
+    "loadtest": "loadtest -n 100 -c 100 http://localhost:1337/cs/Sites?lookuppage=news"
   },
   "author": "Mac Heller-Ogden",
   "license": "Commercial",

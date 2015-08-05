@@ -10,7 +10,7 @@ Update your `nginx.conf` (see `nginx.conf` in `etc` directory) and start nginx.
 
 Also, you'll need a few global npm packages:
 
-    npm install -g nodemon jasmine
+    npm install -g nodemon jasmine pm2
 
 <br>
 
