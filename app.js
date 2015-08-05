@@ -1,7 +1,11 @@
-var Hapi = require('hapi'),
-    server = new Hapi.Server();
+var Hapi,
+    server;
 
 require('newrelic');
+
+Hapi = require('hapi');
+server = new Hapi.Server();
+
 require('./app/setup')(server);
 require('./app/router')(server);
 
