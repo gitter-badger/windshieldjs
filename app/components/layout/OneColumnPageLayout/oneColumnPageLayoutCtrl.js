@@ -3,7 +3,7 @@ var Promise = require('bluebird'),
     handlebars = require('handlebars'),
     fs = require('fs'),
     path = require('path'),
-    config = require('../../../../config.json'),
+    config = require(global.configPath),
     Model = require('./OneColumnPageLayoutModel'),
     paths = require('../../../resources/paths.json');
 

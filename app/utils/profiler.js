@@ -1,4 +1,4 @@
-var config = require('../../config.json'),
+var config = require(global.configPath),
     mkdirp = require('mkdirp'),
     snapshotInterval = 60 * 1000,
     isDev = (process.env.NODE_ENV !== 'production');

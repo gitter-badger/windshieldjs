@@ -57,7 +57,7 @@ module.exports = function (server) {
 
 
     /*
-    var config = require('../config.json');
+    var config = require(global.configPath),
 
     // static server - could just as easily do this via nginx
     server.route({

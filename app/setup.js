@@ -1,6 +1,10 @@
 var path = require('path'),
-    config = require('../config.json'),
+    config,
     owcsRest;
+
+global.configPath = path.join(__dirname, '..', 'etc', 'config.json');
+
+config = require(global.configPath);
 
 config.appRoot = path.join(__dirname, '..');
 config.appDir = path.join(config.appRoot, 'app');

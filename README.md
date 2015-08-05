@@ -6,7 +6,7 @@ A Node.js Rendering Platform
 
 ## Pre-Install
 
-Update your `nginx.conf` (see `nginx.conf` in project root) and start nginx.
+Update your `nginx.conf` (see `nginx.conf` in `etc` directory) and start nginx.
 
 Also, you'll need a few global npm packages:
 
