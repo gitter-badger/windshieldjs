@@ -2,7 +2,7 @@ var path = require('path'),
     config,
     owcsRest;
 
-global.configPath = path.join(__dirname, '..', 'etc', 'config.json');
+global.configPath = path.join(__dirname, '..', 'config.json');
 
 config = require(global.configPath);
 

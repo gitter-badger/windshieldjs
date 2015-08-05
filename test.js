@@ -2,7 +2,7 @@
 var Jasmine = require('jasmine'),
     jasmine = new Jasmine();
 
-jasmine.loadConfigFile('etc/jasmine.json');
+jasmine.loadConfigFile('./jasmine.json');
 
 jasmine.onComplete(function(passed) {
     if (passed) {

@@ -4,3 +4,4 @@ logs
 .DS_Store
 profile_data
 
+newrelic_agent.log

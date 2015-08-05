@@ -3,7 +3,6 @@ var Promise = require('bluebird'),
     path = require('path'),
     config = require(global.configPath),
     owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest')),
-    utils = require('../../utils'),
     getDataFromWebref = require('./getDataFromWebref');
 
 module.exports = {

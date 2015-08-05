@@ -1,13 +1,7 @@
-var Hapi,
-    server;
+var Hapi = require('hapi'),
+    server = new Hapi.Server();
 
-if (process.env.NODE_ENV !== 'production') {
-    require('look').start();
-}
-
-Hapi = require('hapi');
-server = new Hapi.Server();
-
+require('newrelic');
 require('./app/setup')(server);
 require('./app/router')(server);
 
