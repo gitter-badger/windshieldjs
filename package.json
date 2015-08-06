@@ -5,11 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "node test",
-    "start": "nodemon -e js,html,json app",
-    "prod": "NODE_ENV=production pm2 start app -i 0",
-    "cluster": "pm2 start app -i 0",
-    "trace": "NODE_ENV=production node ./etc/tracegl -nolib app",
-    "loadtest": "loadtest -n 100 -c 100 http://localhost:1337/cs/Sites?lookuppage=news"
+    "start": "pm2 start app -i 0 --name windshield",
+    "stop": "pm2 stop windshield",
+    "nodemon": "nodemon -e js,html,json app"
   },
   "author": "Mac Heller-Ogden",
   "license": "Commercial",
