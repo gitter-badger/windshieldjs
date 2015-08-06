@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "node test",
-    "start": "pm2 start app -i 0 --name windshield",
-    "stop": "pm2 stop windshield",
+    "start": "pm2 start app -i 0",
+    "stop": "pm2 stop all",
     "nodemon": "nodemon -e js,html,json app"
   },
   "author": "Mac Heller-Ogden",
