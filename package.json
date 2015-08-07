@@ -13,17 +13,18 @@
   "license": "Commercial",
   "private": true,
   "dependencies": {
-    "hapi": "^8.8.0",
-    "handlebars": "^3.0.3",
-    "lodash": "^3.10.0",
-    "request-promise": "^0.4.3",
     "bluebird": "^2.9.34",
-    "minimist": "^1.1.2",
-    "winston": "^1.0.1",
     "boom": "^2.8.0",
+    "handlebars": "^3.0.3",
+    "hapi": "^8.8.0",
+    "heapdump": "^0.3.7",
+    "lodash": "^3.10.0",
+    "memwatch-next": "marcominetti/node-memwatch",
+    "minimist": "^1.1.2",
     "mkdirp": "^0.5.1",
-    "look": "^0.1.3",
-    "newrelic": "^1.21.1"
+    "newrelic": "^1.21.1",
+    "request-promise": "^0.4.3",
+    "winston": "^1.0.1"
   },
   "devDependencies": {
     "jasmine": "^2.3.2"

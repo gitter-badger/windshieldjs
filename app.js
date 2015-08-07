@@ -1,4 +1,5 @@
 require('newrelic');
+require('./app/utils/leakdetector');
 
 var Hapi = require('hapi'),
     server = new Hapi.Server();
