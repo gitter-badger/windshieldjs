@@ -6,3 +6,4 @@ profile_data
 
 newrelic_agent.log
 npm-debug.log
+.vagrant
