@@ -22,7 +22,7 @@
     "memwatch-next": "marcominetti/node-memwatch",
     "minimist": "^1.1.2",
     "mkdirp": "^0.5.1",
-    "newrelic": "^1.21.1",
+    "newrelic": "^1.21.2",
     "request-promise": "^0.4.3",
     "winston": "^1.0.1"
   },
