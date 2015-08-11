@@ -11,7 +11,7 @@ if (argv.leaks) {
     heapdump = require('heapdump');
     mkdirp = require('mkdirp');
     logger = require('./logger');
-    path = require('path'),
+    path = require('path');
     tmp = path.join(__dirname, '..', '..', 'tmp');
 
     // A leak event will be emitted when heap usage has increased for five consecutive garbage collections
