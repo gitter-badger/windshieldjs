@@ -17,6 +17,7 @@ if (argv.leaks) {
     // A leak event will be emitted when heap usage has increased for five consecutive garbage collections
     memwatch.on('leak', function(info) {
         logger.error('Memory leak detected:', info);
+        logger.info((process.memoryUsage().heapUsed/1024/1024).toFixed() + 'MB used');
         mkdirp(tmp, function (err) {
             var file = path.join(tmp, 'windshield-' + process.pid + '-' + Date.now() + '.heapsnapshot');
             heapdump.writeSnapshot(file, function (err) {
