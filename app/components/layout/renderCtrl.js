@@ -4,11 +4,11 @@ var Promise = require('bluebird'),
 module.exports = function (reply) {
     return function (data) {
         return new Promise(function (resolve, reject) {
-            var layout = data.layout;
+            var component = data.component;
             try {
-                resolve(require('./' + layout + '/' + _.camelCase(layout) + 'Ctrl')(reply, data));
+                resolve(require('./' + component + '/' + _.camelCase(component) + 'Ctrl')(reply, data));
             } catch (e) {
-                reject('layout `' + layout + '` not found. ' + e);
+                reject('layout `' + component + '` not found. ' + e);
             }
         });
     };

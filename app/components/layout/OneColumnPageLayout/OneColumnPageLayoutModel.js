@@ -4,13 +4,13 @@ var path = require('path'),
 
 module.exports = function (data) {
     this.title = data.title;
-    this.assoc = _.map(data.assoc, function (item) {
+    this.main = _.map(data.collections.main, function (item) {
         var AssocModel;
         try {
-            AssocModel = require(path.join('..', '..', paths[item.componentName], item.componentName + 'Model'));
+            AssocModel = require(path.join('..', '..', paths[item.component], item.component + 'Model'));
             return new AssocModel(item);
         } catch (e) {
-            return { componentName: 'NotFound' };
+            return { component: 'NotFound' };
         }
     });
 };

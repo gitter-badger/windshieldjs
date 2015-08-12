@@ -11,12 +11,16 @@ module.exports = function (server) {
         method: 'GET',
         path: '/cs/Sites',
         handler: function (req, reply) {
-            owcsAdapter.getDataFromWebref(req.query.lookuppage)
+            owcsAdapter.getLayout(req)
                 .then(components.layout.renderCtrl(reply))
                 .catch(logger.error);
         }
     });
 
+
+    /**
+     * Don't use the below routes. They are just for debugging.
+     */
 
     // parsed asset data
     server.route({
@@ -50,41 +54,3 @@ module.exports = function (server) {
     });
 
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
