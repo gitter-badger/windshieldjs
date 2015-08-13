@@ -1,6 +1,6 @@
-node_modules
-*.log
-*.wtf-trace
 .DS_Store
-.request-cache
+node_modules
+**/*.log
+**/.request-cache/*
+!**/.request-cache/.gitkeep
 .vagrant
