@@ -1,9 +1,6 @@
 node_modules
-logs
+*.log
 *.wtf-trace
 .DS_Store
-profile_data
-
-newrelic_agent.log
-npm-debug.log
+.request-cache
 .vagrant
