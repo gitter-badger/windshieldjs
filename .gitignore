@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
 **/*.log
-**/.request-cache/*
-!**/.request-cache/.gitkeep
 .vagrant
+dump.rdb
