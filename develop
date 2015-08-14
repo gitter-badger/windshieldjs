@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-pgrep nginx
-if [ $? -ne 0 ]; then
-    sudo nginx
-fi
-nodemon app

@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "node test",
-    "start": "pm2 start app -i 0 && pm2 monit",
-    "stop": "pm2 stop all",
+    "start": "node app",
     "nodemon": "nodemon -e js,html,json app"
   },
   "author": "Mac Heller-Ogden",
