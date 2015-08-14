@@ -10,7 +10,7 @@
     "nodemon": "nodemon -e js,html,json app"
   },
   "author": "Mac Heller-Ogden",
-  "license": "Commercial",
+  "license": "Apache-2.0",
   "private": true,
   "dependencies": {
     "bluebird": "^2.9.34",

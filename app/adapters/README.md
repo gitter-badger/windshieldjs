@@ -6,11 +6,13 @@ All adapters must export one or more of the methods outlined below.
 
 ### owcsAdapter.getLayout(request)
 
-The `getLayout` adapter method takes a request object and returns a layout object in the following format:
+The `getLayout` adapter method takes a request object and returns a layout object.
+
+Example Layout Object:
 
     {
         component: "OneColumnPageLayout",
-        title: "Foo",
+        title: "News",
         collections: {
             main: [
                 {

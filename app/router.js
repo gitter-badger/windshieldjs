@@ -3,7 +3,7 @@ var path = require('path'),
     components = require('./components'),
     logger = require('./utils/logger'),
     config = require(global.configPath),
-    owcsRest = require(path.join(config.appRoot, 'lib', 'owcs-rest'));
+    owcsRest = require('owcs-rest');
 
 module.exports = function (server) {
 
