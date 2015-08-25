@@ -1,10 +1,10 @@
 {
-    "Ad": "common/Ad",
-    "NoMarginOneColumnPageLayout": "layout/NoMarginOneColumnPageLayout",
-    "OneColumnPageLayout": "layout/OneColumnPageLayout",
-    "Article": "news/Article",
-    "CuratedArticles": "news/CuratedArticles",
-    "CuratedTag": "news/CuratedTag",
-    "LatestPublishedArticles": "news/LatestPublishedArticles",
-    "NotFound": "common/NotFound"
+    "Ad": "components/common/Ad",
+    "NoMarginOneColumnPageLayout": "layouts/NoMarginOneColumnPageLayout",
+    "OneColumnPageLayout": "layouts/OneColumnPageLayout",
+    "Article": "components/news/Article",
+    "CuratedArticles": "components/news/CuratedArticles",
+    "CuratedTag": "components/news/CuratedTag",
+    "LatestPublishedArticles": "components/news/LatestPublishedArticles",
+    "NotFound": "components/common/NotFound"
 }

@@ -1,6 +1,6 @@
 var path = require('path'),
     owcsAdapter = require('./adapters/owcs'),
-    components = require('./components'),
+    layouts = require('./layouts'),
     logger = require('./utils/logger'),
     config = require(global.configPath),
     owcsRest = require('owcs-rest');
@@ -12,7 +12,7 @@ module.exports = function (server) {
         path: '/cs/Sites',
         handler: function (req, reply) {
             owcsAdapter.getLayout(req)
-                .then(components.layout.renderCtrl(reply))
+                .then(layouts.renderCtrl(reply))
                 .catch(logger.error);
         }
     });

@@ -1,6 +1,6 @@
 var path = require('path'),
     _ = require('lodash'),
-    paths = require('../../../resources/paths');
+    paths = require('../../resources/paths');
 
 module.exports = function (data) {
     this.title = data.title;

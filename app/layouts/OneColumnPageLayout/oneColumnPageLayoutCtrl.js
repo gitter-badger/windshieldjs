@@ -4,13 +4,13 @@ var Promise = require('bluebird'),
     fs = require('fs'),
     path = require('path'),
     config = require(global.configPath),
-    Model = require('../OneColumnPageLayout/OneColumnPageLayoutModel'),
-    paths = require('../../../resources/paths.json');
+    Model = require('./OneColumnPageLayoutModel'),
+    paths = require('../../resources/paths.json');
 
 module.exports = function (reply, data) {
     var layout = new Model(data);
     Promise.all(_.map(layout.main, function (item) {
-        return Promise.promisify(fs.readFile)(path.join(config.componentsDir, paths[item.component], 'templates', 'default.html'), 'utf-8').then(function (source) {
+        return Promise.promisify(fs.readFile)(path.join(config.appDir, paths[item.component], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
                     name: item.partial,
@@ -22,6 +22,6 @@ module.exports = function (reply, data) {
         _.forEach(partials, function (partial) {
             handlebars.registerPartial(partial.name, partial.source);
         });
-        reply.view('components/layout/OneColumnPageLayout/OneColumnPageLayoutTemplate', layout);
+        reply.view('layouts/OneColumnPageLayout/OneColumnPageLayoutTemplate', layout);
     });
 };
