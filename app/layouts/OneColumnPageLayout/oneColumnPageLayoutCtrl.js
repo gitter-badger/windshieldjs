@@ -8,8 +8,8 @@ var Promise = require('bluebird'),
     paths = require('../../resources/paths.json');
 
 module.exports = function (reply, data) {
-    var layout = new Model(data);
-    return Promise.all(_.map(layout.main, function (item) {
+    var model = new Model(data);
+    return Promise.all(_.map(model.main, function (item) {
         return Promise.promisify(fs.readFile)(path.join(config.appRoot, paths[item.component], 'templates', 'default.html'), 'utf-8').then(function (source) {
             return new Promise(function (resolve, reject) {
                 resolve({
@@ -22,6 +22,6 @@ module.exports = function (reply, data) {
         _.forEach(partials, function (partial) {
             handlebars.registerPartial(partial.name, partial.source);
         });
-        reply.view(path.join(paths[layout.component], 'OneColumnPageLayoutTemplate'), layout);
+        reply.view(path.join(paths[model.layout], 'OneColumnPageLayoutTemplate'), model);
     });
 };

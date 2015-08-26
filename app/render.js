@@ -5,11 +5,11 @@ var path = require('path'),
 module.exports = function (reply) {
     return function (data) {
         return new Promise(function (resolve, reject) {
-            var component = data.component;
+            var layout = data.layout;
             try {
-                resolve(require(path.join(__dirname, 'layouts', component, _.camelCase(component) + 'Ctrl'))(reply, data));
+                resolve(require(path.join(__dirname, 'layouts', layout, _.camelCase(layout) + 'Ctrl'))(reply, data));
             } catch (e) {
-                reject('layout `' + component + '` not found. ' + e);
+                reject('layout `' + layout + '` not found. ' + e);
             }
         });
     };

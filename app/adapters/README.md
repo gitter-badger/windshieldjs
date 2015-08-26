@@ -10,7 +10,7 @@ definition object.
 Example Page Definition Object:
 
     {
-        component: "OneColumnPageLayout",
+        layout: "OneColumnPageLayout",
         title: "News",
         collections: {
             main: [

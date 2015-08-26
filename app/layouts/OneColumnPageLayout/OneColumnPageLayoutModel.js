@@ -5,7 +5,7 @@ var path = require('path'),
 
 module.exports = function (data) {
     this.title = data.title;
-    this.component = data.component;
+    this.layout = data.layout;
     this.main = _.map(data.collections.main, function (item) {
         var AssocModel;
         try {

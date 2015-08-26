@@ -14,7 +14,7 @@ module.exports = function (webref) {
                     attributes: {},
                     collections: {}
                 };
-                data.component = _.findWhere(assetDao.attr('Webreference'), { url: webref }).template.split('/').pop();
+                data.layout = _.findWhere(assetDao.attr('Webreference'), { url: webref }).template.split('/').pop();
                 data.title = assetDao.attr('title');
                 data.collections.main = _.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
                     var asset = assetDao.getAssetData(assetRef);
