@@ -17,11 +17,12 @@ module.exports = function (webref) {
                 data.layout = _.findWhere(assetDao.attr('Webreference'), { url: webref }).template.split('/').pop();
                 data.title = assetDao.attr('title');
                 data.associations.main = _.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
-                    var asset = assetDao.getAssetData(assetRef);
-                    asset.component = asset.subtype;
-                    asset.partial = generatePartialName(asset.subtype, asset.id);
-                    asset.recs = assetDao.getManualrecs(asset.id);
-                    asset.nonStockImageUrls = assetDao.get().nonStockImageUrls;
+                    var asset = {};
+                    asset.data = assetDao.getAssetData(assetRef);
+                    asset.data.recs = assetDao.getManualrecs(asset.data.id);
+                    asset.data.nonStockImageUrls = assetDao.get().nonStockImageUrls;
+                    asset.name = asset.data.subtype;
+                    asset.partial = generatePartialName(asset.data.subtype, asset.data.id);
                     return asset;
                 });
                 resolve(data);

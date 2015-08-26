@@ -1,6 +1,6 @@
-module.exports = function (data) {
-    this.component = data.component;
-    this.partial = data.partial;
-    this.id = data.id;
-    this.name = data.name;
+module.exports = function (component) {
+    this.component = component.name;
+    this.partial = component.partial;
+    this.id = component.data.id;
+    this.name = component.data.name;
 };
