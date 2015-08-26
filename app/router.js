@@ -2,7 +2,7 @@ var path = require('path'),
     owcsAdapter = require('./adapters/owcs'),
     layouts = require('./layouts'),
     logger = require('./utils/logger'),
-    config = require(global.configPath),
+    config = require(global.appConfigPath),
     owcsRest = require('owcs-rest');
 
 module.exports = function (server) {

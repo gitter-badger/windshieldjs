@@ -10,7 +10,19 @@ describe("renderCtrl", function () {
             view: function () {}
         };
         mockData = {
-            layout: 'OneColumnPageLayout'
+            component: 'OneColumnPageLayout',
+            collections: {
+                main: [
+                    {
+                        component: 'ComponentOne',
+                        partial: 'componentOne123'
+                    },
+                    {
+                        component: 'ComponentTwo',
+                        partial: 'componentTwo123'
+                    }
+                ]
+            }
         };
     });
 

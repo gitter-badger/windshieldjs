@@ -24,9 +24,12 @@
     "newrelic": "^1.21.2",
     "promise-circuitbreaker": "^1.0.2",
     "request": "^2.60.0",
+    "rewire": "^2.3.4",
     "winston": "^1.0.1"
   },
   "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-jasmine": "^2.0.1",
     "jasmine": "^2.3.2"
   }
 }

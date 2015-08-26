@@ -1,5 +1,5 @@
 var winston = require('winston'),
-    config = require(global.configPath),
+    config = require(global.appConfigPath),
     path = require('path');
 
 module.exports = new (winston.Logger)({

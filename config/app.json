@@ -7,8 +7,5 @@
     },
     "services": {
         "host": "http://services-ft.cars.com"
-    },
-    "profiling": {
-        "wtfPath": "/usr/local/lib/node_modules/tracing-framework/build-out/wtf_node_js_compiled"
     }
 }

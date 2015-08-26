@@ -2,18 +2,16 @@ var path = require('path'),
     config,
     owcsRest;
 
-global.configPath = path.join(__dirname, '..', 'config.json');
+require('./config/globals');
 
-config = require(global.configPath);
-config.appRoot = path.join(__dirname, '..');
+config = require(global.appConfigPath);
+config.appRoot = path.join(__dirname);
 config.appDir = path.join(config.appRoot, 'app');
 config.componentsDir = path.join(config.appDir, 'components');
 
 owcsRest = require('owcs-rest');
 owcsRest.setup(config.owcs);
 owcsRest.registerPlugin(require('owcs-rest-plugin-cars')({ services: config.services }));
-
-//require('./utils/leakdetector');
 
 module.exports = function (server) {
 
@@ -26,5 +24,7 @@ module.exports = function (server) {
         relativeTo: path.join(__dirname),
         path: './'
     });
+
+    require('./app/router')(server);
 
 };

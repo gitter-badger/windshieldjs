@@ -1,5 +1,7 @@
-var Jasmine = require('jasmine'),
+var gulp = require('gulp'),
+    Jasmine = require('jasmine'),
     jasmine = new Jasmine(),
+    gulpJasmine = require('gulp-jasmine'),
     Hapi = new require('hapi');
 
 require('./bootstrap')(new Hapi.Server());
@@ -14,4 +16,10 @@ jasmine.onComplete(function (passed) {
     }
 });
 
-jasmine.execute();
+gulp.task('test', function () {
+    return gulp.src('./app/**/*.spec.js')
+       .pipe(gulpJasmine());
+});
+
+gulp.task('default', [ 'test' ]);
+

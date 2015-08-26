@@ -1,7 +1,7 @@
 var Promise = require('bluebird'),
     _ = require('lodash'),
     path = require('path'),
-    config = require(global.configPath),
+    config = require(global.appConfigPath),
     owcsRest = require('owcs-rest'),
     generatePartialName = require('./generatePartialName');
 
