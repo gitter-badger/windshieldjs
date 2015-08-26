@@ -1,4 +1,4 @@
 module.exports = {
-    getLayout: require('./getLayout')
+    getPageDef: require('./getPageDef')
 };
 

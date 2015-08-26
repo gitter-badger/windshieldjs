@@ -1,14 +1,13 @@
 # Adapters
 
-All adapters must export one or more of the methods outlined below.
-
 ## METHODS
 
-### owcsAdapter.getLayout(request)
+### getPageDef(request)
 
-The `getLayout` adapter method takes a request object and returns a layout object.
+The `getPageDef` adapter method takes a request object and returns a page
+definition object.
 
-Example Layout Object:
+Example Page Definition Object:
 
     {
         component: "OneColumnPageLayout",

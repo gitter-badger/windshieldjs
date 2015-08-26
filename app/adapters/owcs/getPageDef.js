@@ -5,16 +5,8 @@ var Promise = require('bluebird'),
     owcsRest = require('owcs-rest'),
     generatePartialName = require('./generatePartialName');
 
-module.exports = function (req) {
+module.exports = function (webref) {
     return new Promise(function (resolve, reject) {
-        var webref;
-
-        if (!req.query.lookuppage) {
-            reject('lookuppage query parameter required');
-        } else {
-            webref = req.query.lookuppage;
-        }
-
         owcsRest.promises.getAssetRefFromWebreference(webref)
             .then(_.partialRight(owcsRest.promises.getAssetDao, 4))
             .then(function (assetDao) {
