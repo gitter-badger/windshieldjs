@@ -6,7 +6,7 @@ var path = require('path'),
 module.exports = function (data) {
     this.title = data.title;
     this.layout = data.layout;
-    this.main = _.map(data.collections.main, function (item) {
+    this.main = _.map(data.associations.main, function (item) {
         var AssocModel;
         try {
             AssocModel = require(path.join(config.appRoot, paths[item.component], item.component + 'Model'));

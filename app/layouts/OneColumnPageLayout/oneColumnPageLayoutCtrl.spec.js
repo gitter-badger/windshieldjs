@@ -25,7 +25,7 @@ describe("oneColumnPageLayoutCtrl", function () {
         };
         mockData = {
             component: 'OneColumnPageLayout',
-            collections: {
+            associations: {
                 main: [
                     {
                         component: 'ComponentOne',
@@ -53,7 +53,7 @@ describe("oneColumnPageLayoutCtrl", function () {
     it("should make a call to read the partial template file for each item in the main collection", function (done) {
         oneColumnPageLayoutCtrl(mockReply, mockData).finally(function () {
             expect(fs.readFile).toHaveBeenCalled();
-            expect(fs.readFile.calls.count()).toEqual(mockData.collections.main.length);
+            expect(fs.readFile.calls.count()).toEqual(mockData.associations.main.length);
             done();
         });
     });

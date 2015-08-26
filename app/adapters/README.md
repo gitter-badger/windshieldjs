@@ -12,7 +12,7 @@ Example Page Definition Object:
     {
         layout: "OneColumnPageLayout",
         title: "News",
-        collections: {
+        associations: {
             main: [
                 {
                     component: "Ad",
@@ -23,7 +23,8 @@ Example Page Definition Object:
             ],
             secondary: [
                 {
-                    foo: "bar",
+                    component: "Foo",
+                    partial: "Foo12929812",
                     ...
                 },
                 ...

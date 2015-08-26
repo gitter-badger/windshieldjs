@@ -12,11 +12,11 @@ module.exports = function (webref) {
             .then(function (assetDao) {
                 var data = {
                     attributes: {},
-                    collections: {}
+                    associations: {}
                 };
                 data.layout = _.findWhere(assetDao.attr('Webreference'), { url: webref }).template.split('/').pop();
                 data.title = assetDao.attr('title');
-                data.collections.main = _.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
+                data.associations.main = _.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
                     var asset = assetDao.getAssetData(assetRef);
                     asset.component = asset.subtype;
                     asset.partial = generatePartialName(asset.subtype, asset.id);

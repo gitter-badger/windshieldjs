@@ -11,7 +11,7 @@ describe("renderCtrl", function () {
         };
         mockData = {
             component: 'OneColumnPageLayout',
-            collections: {
+            associations: {
                 main: [
                     {
                         component: 'ComponentOne',
