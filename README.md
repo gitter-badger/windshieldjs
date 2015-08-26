@@ -31,12 +31,3 @@ npm start
 ```
 
 <br>
-
-## TODO
-
-  - requestify + redis (https://www.npmjs.com/package/requestify)
-  - Support for query assets
-  - Support for siteplan (to support navigation)
-  - Request and render embedded assets
-  - Publish modules currently in `lib` to private npm and pull in via package.
-

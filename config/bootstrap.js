@@ -2,10 +2,10 @@ var path = require('path'),
     config,
     owcsRest;
 
-require('./config/globals');
+global.appConfigPath = path.join(__dirname, 'app.json');
 
 config = require(global.appConfigPath);
-config.appRoot = path.join(__dirname);
+config.appRoot = path.join(__dirname, '..');
 config.appDir = path.join(config.appRoot, 'app');
 config.componentsDir = path.join(config.appDir, 'components');
 
@@ -21,10 +21,10 @@ module.exports = function (server) {
         engines: {
             html: require('handlebars')
         },
-        relativeTo: path.join(__dirname),
+        relativeTo: path.join(config.appRoot),
         path: './'
     });
 
-    require('./app/router')(server);
+    require(path.join(config.appDir, 'router'))(server);
 
 };

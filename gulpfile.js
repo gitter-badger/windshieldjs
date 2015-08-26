@@ -1,25 +1,13 @@
 var gulp = require('gulp'),
-    Jasmine = require('jasmine'),
-    jasmine = new Jasmine(),
-    gulpJasmine = require('gulp-jasmine'),
-    Hapi = new require('hapi');
+    jasmine = require('gulp-jasmine'),
+    Hapi = new require('hapi'),
+    server = new Hapi.Server();
 
-require('./bootstrap')(new Hapi.Server());
-
-jasmine.loadConfigFile('./config/jasmine.json');
-
-jasmine.onComplete(function (passed) {
-    if (passed) {
-        console.log('All specs have passed');
-    } else {
-        console.log('At least one spec has failed');
-    }
-});
+require('./config/bootstrap')(server);
 
 gulp.task('test', function () {
     return gulp.src('./app/**/*.spec.js')
-       .pipe(gulpJasmine());
+       .pipe(jasmine());
 });
 
 gulp.task('default', [ 'test' ]);
-
