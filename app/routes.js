@@ -1,5 +1,6 @@
-var owcsAdapter = require('./adapters/page/owcs'),
-    carsContentAdapter = require('./adapters/association/carsContent');
+var owcsPageAdapter = require('./adapters/page/owcs'),
+    carsContentPageAdapter = require('./adapters/page/carsContent'),
+    carsContentAssocAdapter = require('./adapters/association/carsContent');
 
 module.exports = [
 
@@ -9,7 +10,7 @@ module.exports = [
         context: {
             webref: 'homepage'
         },
-        adapters: [ owcsAdapter, carsContentAdapter ]
+        adapters: [ owcsPageAdapter, carsContentAssocAdapter ]
     },
 
     // News
@@ -18,7 +19,16 @@ module.exports = [
         context: {
             webref: 'news'
         },
-        adapters: [ owcsAdapter, carsContentAdapter ]
+        adapters: [ owcsPageAdapter, carsContentAssocAdapter ]
+    },
+
+    // Example without ever touching OWCS
+    {
+        path: '/no-owcs',
+        context: {
+            target: [ 'example', 'page' ]
+        },
+        adapters: [ carsContentPageAdapter, carsContentAssocAdapter ]
     }
 
 ];
