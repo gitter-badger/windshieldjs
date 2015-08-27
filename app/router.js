@@ -1,5 +1,7 @@
 var path = require('path'),
-    owcsAdapter = require('./adapters/owcs'),
+    composer = require('./adapters/composer'),
+    owcsAdapter = require('./adapters/page/owcs'),
+    carsContentAdapter = require('./adapters/association/carsContent'),
     render = require('./render'),
     logger = require('./utils/logger'),
     config = require(global.appConfigPath),
@@ -11,7 +13,8 @@ module.exports = function (server) {
         method: 'GET',
         path: '/news',
         handler: function (req, reply) {
-            owcsAdapter.getPageDef('news')
+            // call signature: ( context, pageAdapter, [associationAdapter...] )
+            composer({ webref: 'news' }, owcsAdapter, carsContentAdapter)
                 .then(render(reply))
                 .catch(logger.error);
         }

@@ -24,7 +24,7 @@ describe("oneColumnPageLayoutCtrl", function () {
             view: function () {}
         };
         mockData = {
-            component: 'OneColumnPageLayout',
+            layout: 'OneColumnPageLayout',
             associations: {
                 main: [
                     {

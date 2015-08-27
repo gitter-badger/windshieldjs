@@ -5,16 +5,16 @@ var Promise = require('bluebird'),
     owcsRest = require('owcs-rest'),
     generatePartialName = require('./generatePartialName');
 
-module.exports = function (webref) {
+module.exports = function (context) {
     return new Promise(function (resolve, reject) {
-        owcsRest.promises.getAssetRefFromWebreference(webref)
+        owcsRest.promises.getAssetRefFromWebreference(context.webref)
             .then(_.partialRight(owcsRest.promises.getAssetDao, 4))
             .then(function (assetDao) {
                 var data = {
                     attributes: {},
                     associations: {}
                 };
-                data.layout = _.findWhere(assetDao.attr('Webreference'), { url: webref }).template.split('/').pop();
+                data.layout = _.findWhere(assetDao.attr('Webreference'), { url: context.webref }).template.split('/').pop();
                 data.title = assetDao.attr('title');
                 data.associations.main = _.map(assetDao.getAssociatedAssets('assets'), function (assetRef) {
                     var asset = {};

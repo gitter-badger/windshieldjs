@@ -1,11 +1,8 @@
 # Adapters
 
-## METHODS
+## pageAdapter(context)
 
-### getPageDef(request)
-
-The `getPageDef` adapter method takes a request object and returns a page
-definition object.
+The pageAdapter is a function which takes a context object and returns a page definition object.
 
 Example Page Definition Object:
 
@@ -31,5 +28,32 @@ Example Page Definition Object:
             ],
             ...
         }
+    }
+
+### associationAdapter(context)
+
+The association adapter is a function which takes a context object and returns an
+associations object (an object where each property is a collections of components
+
+Example Associations Object:
+
+    {
+        header: [
+            {
+                component: "Buy",
+                partial: "Buy9389712789",
+                ...
+            },
+            ...
+        ],
+        footer: [
+            {
+                component: "Sell",
+                partial: "Sell239123921",
+                ...
+            },
+            ...
+        ],
+        ...
     }
 

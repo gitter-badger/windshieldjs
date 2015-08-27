@@ -1,7 +1,7 @@
-var renderCtrl = require('./renderCtrl'),
+var render = require('./render'),
     Promise = require('bluebird');
 
-describe("renderCtrl", function () {
+describe("render", function () {
     var mockReply,
         mockData;
 
@@ -10,7 +10,7 @@ describe("renderCtrl", function () {
             view: function () {}
         };
         mockData = {
-            component: 'OneColumnPageLayout',
+            layout: 'OneColumnPageLayout',
             associations: {
                 main: [
                     {
@@ -27,14 +27,14 @@ describe("renderCtrl", function () {
     });
 
     it("should exist", function () {
-        expect(renderCtrl).toEqual(jasmine.any(Function));
+        expect(render).toEqual(jasmine.any(Function));
     });
 
     it("returns a function", function () {
-        expect(renderCtrl(mockReply)).toEqual(jasmine.any(Function));
+        expect(render(mockReply)).toEqual(jasmine.any(Function));
     });
 
     it("the returned function returns a Promise", function () {
-        expect(renderCtrl(mockReply)(mockData) instanceof Promise).toBe(true);
+        expect(render(mockReply)(mockData) instanceof Promise).toBe(true);
     });
 });
