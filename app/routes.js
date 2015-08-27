@@ -1,34 +1,10 @@
-var owcsPageAdapter = require('./adapters/page/owcs'),
-    carsContentPageAdapter = require('./adapters/page/carsContent'),
-    carsContentAssocAdapter = require('./adapters/association/carsContent');
+var path = require('path'),
+    util = require('../util'),
+    routeDir = path.join(__dirname, 'routes'),
+    routes = [];
 
-module.exports = [
+util.getFiles(routeDir).forEach(function (file) {
+    routes = routes.concat(require(path.join(routeDir, file)));
+});
 
-    // Homepage
-    {
-        path: '/',
-        context: {
-            webref: 'homepage'
-        },
-        adapters: [ owcsPageAdapter, carsContentAssocAdapter ]
-    },
-
-    // News
-    {
-        path: '/news',
-        context: {
-            webref: 'news'
-        },
-        adapters: [ owcsPageAdapter, carsContentAssocAdapter ]
-    },
-
-    // Example without ever touching OWCS
-    {
-        path: '/no-owcs',
-        context: {
-            target: [ 'example', 'page' ]
-        },
-        adapters: [ carsContentPageAdapter, carsContentAssocAdapter ]
-    }
-
-];
+module.exports = routes;

@@ -1,7 +1,7 @@
 var path = require('path'),
     gulp = require('gulp'),
     _ = require('lodash'),
-    util = require('./util');
+    util = require('../util');
 
 module.exports = (function () {
     var taskDir = path.join(__dirname, 'tasks');
