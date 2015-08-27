@@ -1,13 +1,11 @@
-var path = require('path'),
-    composer = require('./adapters/composer'),
+var composer = require('../adapters/composer'),
     render = require('./render'),
-    logger = require('./utils/logger'),
-    owcsRest = require('owcs-rest'),
-    routingTable = require('./routingTable');
+    logger = require('../utils/logger'),
+    routes = require('../routes');
 
 module.exports = function (server) {
 
-    routingTable.forEach(function (route) {
+    routes.forEach(function (route) {
         if (!route.path) throw new Error('missing `path` property');
         if (!route.context) throw new Error('missing `context` property');
         if (!route.adapters) throw new Error('missing `adapters` property');
@@ -76,6 +74,7 @@ module.exports = function (server) {
 // keeping these commented out for easy reference ... can be used for debugging
 
 /*
+var owcsRest = require('owcs-rest');
 
 // parsed asset data
 server.route({

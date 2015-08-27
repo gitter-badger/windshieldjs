@@ -25,6 +25,6 @@ module.exports = function (server) {
         path: './'
     });
 
-    require(path.join(config.appDir, 'router'))(server);
+    require(path.join(config.appDir, 'main', 'router'))(server);
 
 };

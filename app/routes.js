@@ -2,6 +2,8 @@ var owcsAdapter = require('./adapters/page/owcs'),
     carsContentAdapter = require('./adapters/association/carsContent');
 
 module.exports = [
+
+    // Homepage
     {
         path: '/',
         context: {
@@ -9,6 +11,8 @@ module.exports = [
         },
         adapters: [ owcsAdapter, carsContentAdapter ]
     },
+
+    // News
     {
         path: '/news',
         context: {
@@ -16,4 +20,5 @@ module.exports = [
         },
         adapters: [ owcsAdapter, carsContentAdapter ]
     }
+
 ];
