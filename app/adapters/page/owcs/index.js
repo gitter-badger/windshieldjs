@@ -11,7 +11,6 @@ module.exports = function (context) {
             .then(_.partialRight(owcsRest.promises.getAssetDao, 4))
             .then(function (assetDao) {
                 var data = {
-                    attributes: {},
                     associations: {}
                 };
                 data.layout = _.findWhere(assetDao.attr('Webreference'), { url: context.webref }).template.split('/').pop();

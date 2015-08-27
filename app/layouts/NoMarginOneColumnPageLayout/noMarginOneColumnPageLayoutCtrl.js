@@ -22,6 +22,6 @@ module.exports = function (reply, data) {
         _.forEach(partials, function (partial) {
             handlebars.registerPartial(partial.name, partial.source);
         });
-        reply.view(path.join(paths['OneColumPageLayout'], 'OneColumnPageLayoutTemplate'), model);
+        reply.view(path.join(paths['OneColumnPageLayout'], 'OneColumnPageLayoutTemplate'), model);
     });
 };
