@@ -7,7 +7,7 @@ module.exports = [
     {
         path: '/no-owcs',
         context: {
-            target: [ 'example', 'page' ]
+            target: [ 'pages', 'example' ]
         },
         adapters: [ carsContentPageAdapter, carsContentAssocAdapter ]
     }

@@ -9,6 +9,7 @@ module.exports = function (server) {
         if (!route.path) throw new Error('missing `path` property');
         if (!route.context) throw new Error('missing `context` property');
         if (!route.adapters) throw new Error('missing `adapters` property');
+
         server.route({
             method: route.method || 'GET',
             path: route.path,
