@@ -3,9 +3,6 @@ var Promise = require('bluebird'),
 
 module.exports = function () {
     return new Promise(function (resolve, reject) {
-        resolve({
-            header: carsContent('navigation', 'header'),
-            footer: carsContent('navigation', 'footer')
-        });
+        resolve(carsContent('navigation'));
     });
 };
