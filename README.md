@@ -6,11 +6,13 @@ A Node.js Rendering Platform
 
 ## Pre-Install
 
-Update your `nginx.conf` (see `nginx.conf` in `etc` directory) and start nginx.
+1.) Update your `nginx.conf` (see `nginx.conf` in `etc` directory) and start nginx.
 
-Also, you'll need a few global npm packages:
+2.) Install global npm packages:
 
     npm install -g nodemon jasmine pm2
+
+3.) Setup .npmrc to use virtual repository on our internal artifactory host: http://repository.cars.com/ (details to come)
 
 <br>
 
