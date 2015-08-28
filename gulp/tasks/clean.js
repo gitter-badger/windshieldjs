@@ -1,5 +1,6 @@
-var del = require('del');
+var path = require('path'),
+    del = require('del');
 
 module.exports = function (cb) {
-    del([ './dist' ], cb);
+    del([ 'dist' ], cb);
 };
