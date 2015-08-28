@@ -1,5 +1,8 @@
 {
-    "port": 1337,
+    "server": {
+        "port": 1337,
+        "context": "/windshield"
+    },
     "owcs": {
         "host": "http://sites-www-ft.cars.com",
         "username": "renderer",

@@ -2,12 +2,11 @@ var path = require('path'),
     config,
     owcsRest;
 
-global.appConfigPath = path.join(__dirname, 'app.json');
+global.appConfigPath = path.join(__dirname, 'config', 'app.json');
 
 config = require(global.appConfigPath);
-config.appRoot = path.join(__dirname, '..');
+config.appRoot = path.join(__dirname);
 config.appDir = path.join(config.appRoot, 'app');
-config.componentsDir = path.join(config.appDir, 'components');
 
 owcsRest = require('owcs-rest');
 owcsRest.setup(config.owcs);
@@ -15,7 +14,7 @@ owcsRest.registerPlugin(require('owcs-rest-plugin-cars')({ services: config.serv
 
 module.exports = function (server) {
 
-    server.connection({ port: config.port });
+    server.connection({ port: config.server.port });
 
     server.views({
         engines: {
@@ -24,7 +23,5 @@ module.exports = function (server) {
         relativeTo: path.join(config.appRoot),
         path: './'
     });
-
-    require(path.join(config.appDir, 'main'))(server);
 
 };

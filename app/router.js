@@ -1,7 +1,8 @@
-var composer = require('../adapters/composer'),
-    render = require('./render'),
-    logger = require('../utils/logger'),
-    routes = require('../routes');
+var composer = require('./adapters/composer'),
+    renderer = require('./renderer'),
+    logger = require('./utils/logger'),
+    routes = require('./routes'),
+    config = require(global.appConfigPath);
 
 module.exports = function (server) {
 
@@ -12,7 +13,7 @@ module.exports = function (server) {
 
         server.route({
             method: route.method || 'GET',
-            path: route.path,
+            path: config.server.context + route.path,
             handler: function (request, reply) {
                 var composerArgs = [];
 
@@ -25,7 +26,7 @@ module.exports = function (server) {
                 });
 
                 composer.apply(this, composerArgs)
-                    .then(render(reply))
+                    .then(renderer(reply))
                     .catch(logger.error);
             }
         });

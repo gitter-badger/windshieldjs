@@ -1,7 +1,9 @@
 var path = require('path'),
-    Hapi = new require('hapi');
+    Hapi = new require('hapi'),
+    server = new Hapi.Server();
 
-require('./config/bootstrap')(new Hapi.Server());
+require('./bootstrap')(server);
+require('./app/router')(server);
 
 gulp = require('./gulp');
 

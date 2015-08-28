@@ -1,7 +1,7 @@
-var render = require('./render'),
+var renderer = require('./index'),
     Promise = require('bluebird');
 
-describe("render", function () {
+describe("renderer", function () {
     var mockReply,
         mockData;
 
@@ -27,14 +27,14 @@ describe("render", function () {
     });
 
     it("should exist", function () {
-        expect(render).toEqual(jasmine.any(Function));
+        expect(renderer).toEqual(jasmine.any(Function));
     });
 
     it("returns a function", function () {
-        expect(render(mockReply)).toEqual(jasmine.any(Function));
+        expect(renderer(mockReply)).toEqual(jasmine.any(Function));
     });
 
     it("the returned function returns a Promise", function () {
-        expect(render(mockReply)(mockData) instanceof Promise).toBe(true);
+        expect(renderer(mockReply)(mockData) instanceof Promise).toBe(true);
     });
 });
