@@ -10,7 +10,7 @@ gulp = require('./gulp');
 
 gulp.task('build', gulpSequence('clean', 'package'));
 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('src/**/*.js', [ 'test' ]);
 });
 
