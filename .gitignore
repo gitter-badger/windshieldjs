@@ -1,8 +1,6 @@
 .DS_Store
 coverage
 dist
-node_modules/*
-!node_modules/cars-content
-node_modules/cars-content/node_modules
+node_modules
 **/*.log
 .vagrant
