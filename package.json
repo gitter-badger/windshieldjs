@@ -11,7 +11,9 @@
   },
   "author": "Mac Heller-Ogden",
   "license": "Apache-2.0",
-  "private": true,
+  "publishConfig": {
+      "registry": "http://repository.cars.com/artifactory/api/npm/npm-local"
+  },
   "dependencies": {
     "bluebird": "^2.9.34",
     "handlebars": "^3.0.3",
