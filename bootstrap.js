@@ -1,12 +1,13 @@
 var path = require('path'),
+    appDir = 'app',
     config,
     owcsRest;
 
-global.appConfigPath = path.join(__dirname, 'config', 'app.json');
+global.appConfigPath = path.join(__dirname, appDir, 'config.json');
 
 config = require(global.appConfigPath);
 config.appRoot = path.join(__dirname);
-config.appDir = path.join(config.appRoot, 'app');
+config.appDir = path.join(config.appRoot, appDir);
 
 owcsRest = require('owcs-rest');
 owcsRest.setup(config.owcs);
