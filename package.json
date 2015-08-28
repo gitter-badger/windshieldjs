@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "gulp test",
-    "start": "node app",
-    "nodemon": "nodemon -e js,html,json app",
+    "start": "node src/app",
+    "nodemon": "nodemon -e js,html,json src/app",
     "coverage": "istanbul cover --include-all-sources gulp test"
   },
   "author": "Mac Heller-Ogden",
