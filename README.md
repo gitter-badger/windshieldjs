@@ -1,4 +1,4 @@
-# WINDSHIELD
+# NOX
 
 A Node.js Rendering Platform
 
@@ -17,8 +17,8 @@ Also, you'll need a few global npm packages:
 ## Install
 
 ```
-git clone http://your-username-here@git.cars.com/scm/mp/windshield.git
-cd windshield
+git clone http://your-username-here@git.cars.com/scm/mp/nox.git
+cd nox
 npm install
 ```
 

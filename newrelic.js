@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['Windshield'],
+  app_name: ['Nox'],
   /**
    * Your New Relic license key.
    */
