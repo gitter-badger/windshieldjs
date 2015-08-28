@@ -11,10 +11,11 @@
   },
   "author": "Mac Heller-Ogden",
   "license": "Apache-2.0",
-  "private": true,
+  "publishConfig": {
+      "registry": "http://repository.cars.com/artifactory/api/npm/npm-local"
+  },
   "dependencies": {
     "bluebird": "^2.9.34",
-    "del": "^1.2.1",
     "handlebars": "^3.0.3",
     "hapi": "^8.8.0",
     "lodash": "^3.10.0",
@@ -28,6 +29,7 @@
     "del": "^1.2.1",
     "gulp": "^3.9.0",
     "gulp-jasmine": "^2.0.1",
+    "gulp-sequence": "^0.4.1",
     "istanbul": "^0.3.18",
     "jasmine": "^2.3.2",
     "mkdirp": "^0.5.1",
