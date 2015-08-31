@@ -26,7 +26,7 @@
     "winston": "^1.0.1",
     "owcs-rest": "^0.0.2",
     "owcs-rest-plugin-cars": "^0.0.0",
-    "cars-content": "^0.0.0"
+    "cars-content": "^0.0.1"
   },
   "devDependencies": {
     "del": "^1.2.1",
