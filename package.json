@@ -24,7 +24,7 @@
     "promise-circuitbreaker": "^1.0.2",
     "request": "^2.60.0",
     "winston": "^1.0.1",
-    "owcs-rest": "^0.0.0",
+    "owcs-rest": "^0.0.2",
     "owcs-rest-plugin-cars": "^0.0.0",
     "cars-content": "^0.0.0"
   },
