@@ -1,6 +1,6 @@
 {
   "name": "noxjs",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "app.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "Mac Heller-Ogden",
   "license": "Apache-2.0",
   "publishConfig": {
-      "registry": "http://repository.cars.com/artifactory/api/npm/npm-local"
+    "registry": "http://repository.cars.com/artifactory/api/npm/npm-local"
   },
   "dependencies": {
     "bluebird": "^2.9.34",
