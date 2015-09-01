@@ -1,7 +1,7 @@
-var composer = require('../adapters/composer'),
-    renderer = require('../renderer'),
-    logger = require('../utils/logger'),
-    routes = require('../routes'),
+var composer = require('./adapters/composer'),
+    renderer = require('./renderer'),
+    logger = require('./utils/logger'),
+    routes = require('./routes'),
     config = require(global.appConfigPath);
 
 module.exports = function (server) {

@@ -4,7 +4,7 @@ var path = require('path'),
     gulpSequence = require('gulp-sequence');
 
 require('./src/bootstrap')(server);
-require('./src/app/router')(server);
+require('./src/app')(server);
 
 gulp = require('./gulp');
 

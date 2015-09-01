@@ -1,18 +1,21 @@
 var path = require('path'),
-    appDir = 'app',
     config,
     owcsRest;
 
-global.appConfigPath = path.join(__dirname, appDir, 'config.json');
+// global
+global.appConfigPath = path.join(__dirname, 'config.json');
 
+// config dynamic assignments
 config = require(global.appConfigPath);
 config.appRoot = path.join(__dirname);
-config.appDir = path.join(config.appRoot, appDir);
+config.appDir = path.join(config.appRoot, 'app');
 
+// owcs plugin config
 owcsRest = require('owcs-rest');
 owcsRest.setup(config.owcs);
 owcsRest.registerPlugin(require('owcs-rest-plugin-cars')({ services: config.services }));
 
+// server instance dependent config
 module.exports = function (server) {
 
     server.connection({ port: config.server.port });
