@@ -8,7 +8,7 @@ A Node.js Rendering Platform
 
 1.) Update your `nginx.conf` (see `nginx.conf` in `etc` directory) and start nginx.
 
-2.) Setup npm to use artifactory: http://repository.cars.com/ (details to come)
+2.) Setup npm to use artifactory. See instructions here: https://confluence.cars.com/display/CD/Setup+NPM
 
 <br>
 
@@ -38,7 +38,7 @@ node src
 
 <br>
 
-## Run build artifact
+## Run build
 
 ```
 node dist
