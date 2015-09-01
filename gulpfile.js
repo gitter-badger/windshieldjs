@@ -1,10 +1,8 @@
 var path = require('path'),
-    Hapi = new require('hapi'),
-    server = new Hapi.Server(),
     gulpSequence = require('gulp-sequence');
 
-require('./src/bootstrap')(server);
-require('./src/app')(server);
+require('./src/bootstrap')();
+require('./src/app')();
 
 gulp = require('./gulp');
 

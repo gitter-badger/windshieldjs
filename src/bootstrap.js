@@ -29,6 +29,7 @@ owcsRest.registerPlugin(require('owcs-rest-plugin-cars')({ services: config.serv
 
 // server instance dependent config
 module.exports = function (server) {
+    if (server == null) return;
 
     server.connection({ port: config.server.port });
 
@@ -39,5 +40,4 @@ module.exports = function (server) {
         relativeTo: path.join(config.appRoot),
         path: './'
     });
-
 };

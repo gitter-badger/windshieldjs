@@ -5,6 +5,7 @@ var composer = require('./adapters/composer'),
     config = require(global.appConfigPath);
 
 module.exports = function (server) {
+    if (server == null) return;
 
     routes.forEach(function (route) {
         if (!route.path) throw new Error('missing `path` property');
