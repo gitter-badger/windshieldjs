@@ -1,4 +1,7 @@
 var path = require('path'),
+    _ = require('lodash'),
+    envConfigPath = path.join(__dirname, '..', 'env.json'),
+    envConfig,
     config,
     owcsRest;
 
@@ -7,6 +10,15 @@ global.appConfigPath = path.join(__dirname, 'config.json');
 
 // config dynamic assignments
 config = require(global.appConfigPath);
+
+try {
+    envConfig = require(envConfigPath);
+} catch (e) {
+    envConfig = {};
+}
+
+_.assign(config, envConfig);
+
 config.appRoot = path.join(__dirname);
 config.appDir = path.join(config.appRoot, 'app');
 
