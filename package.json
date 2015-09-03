@@ -1,6 +1,6 @@
 {
-  "name": "noxjs",
-  "version": "0.0.2",
+  "name": "windshield",
+  "version": "0.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {

@@ -17,7 +17,7 @@ if ! [ -L /etc/nginx/nginx.conf ]; then
   ln -fs /vagrant/etc/nginx.conf /etc/nginx/nginx.conf
 fi
 
-grep "/var/opt/nox" $HOME/.profile
+grep "/var/opt/windshield" $HOME/.profile
 if [ $? -ne 0 ]; then
-    echo "cd /var/opt/nox" >> /home/vagrant/.profile
+    echo "cd /var/opt/windshield" >> /home/vagrant/.profile
 fi

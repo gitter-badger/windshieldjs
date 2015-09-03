@@ -1,4 +1,4 @@
-# NOX
+# windshield
 
 A Node.js Rendering Platform
 
@@ -15,8 +15,8 @@ A Node.js Rendering Platform
 ## Install
 
 ```
-git clone http://your-username-here@git.cars.com/scm/mp/nox.git
-cd nox
+git clone http://your-username-here@git.cars.com/scm/mp/windshield.git
+cd windshield
 npm install
 ```
 
@@ -59,4 +59,4 @@ Note: It is on the roadmap to tie this all back into the new central config repo
 
 ## Contribute
 
-Please refer to [CONTRIBUTING.md](http://git.cars.com/projects/MP/repos/nox/browse/CONTRIBUTING.md)
+Please refer to [CONTRIBUTING.md](http://git.cars.com/projects/MP/repos/windshield/browse/CONTRIBUTING.md)
