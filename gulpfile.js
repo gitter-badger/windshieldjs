@@ -1,9 +1,6 @@
 var path = require('path'),
     gulpSequence = require('gulp-sequence');
 
-require('./src/bootstrap')();
-require('./src/app')();
-
 gulp = require('./gulp');
 
 gulp.task('build', gulpSequence('clean', 'package'));

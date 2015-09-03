@@ -1,5 +1,8 @@
-var renderer = require('./index'),
+var windshield = require('../index'),
+    server = new windshield.Server(),
     Promise = require('bluebird');
+
+server.configure();
 
 describe("renderer", function () {
     var mockReply,
@@ -27,14 +30,14 @@ describe("renderer", function () {
     });
 
     it("should exist", function () {
-        expect(renderer).toEqual(jasmine.any(Function));
+        expect(server.renderer).toEqual(jasmine.any(Function));
     });
 
     it("returns a function", function () {
-        expect(renderer(mockReply)).toEqual(jasmine.any(Function));
+        expect(server.renderer(mockReply)).toEqual(jasmine.any(Function));
     });
 
     it("the returned function returns a Promise", function () {
-        expect(renderer(mockReply)(mockData) instanceof Promise).toBe(true);
+        expect(server.renderer(mockReply)(mockData) instanceof Promise).toBe(true);
     });
 });
