@@ -7,13 +7,14 @@
 #### Semicolon
 
   - Always end statements with `;`
-  ```javascript
-  // Right
-  console.log('even when not required');
 
-  // Wrong
-  console.log('even when not required')
-  ```
+```javascript
+// Right
+console.log('even when not required');
+
+// Wrong
+console.log('even when not required')
+```
 
 #### Variable declarations
 
@@ -30,17 +31,18 @@
 #### Scope
 
   - Use implicit or single statement scopes sparingly -- use your best judgement and when in doubt wrap your scope in `{}`
-  ```javascript
-  // Prefer
 
-  if (condition) {
-      return;
-  }
+```javascript
+// Prefer
 
-  // Use sparingly
+if (condition) {
+    return;
+}
 
-  if (condition) return;
-  ```
+// Use sparingly
+
+if (condition) return;
+```
 
 #### For loops
 
@@ -50,73 +52,75 @@
   - When iterating over a fixed or calculated size, assign size to a variable inside the `for` declaration and use iterator variable name with `l` suffix
   - Always `++i`, never `i++`
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  var name = 'john';
+var name = 'john';
 
-  for (var i = 0, il = name.length; i < il; ++i) {
-      console.log(name[i]);
-  }
+for (var i = 0, il = name.length; i < il; ++i) {
+    console.log(name[i]);
+}
 
-  // Wrong
+// Wrong
 
-  var position;
-  var name = 'john';
+var position;
+var name = 'john';
 
-  for (position = 0; position < name.length; position++) {
-      console.log(name[position]) ;
-  }
-  ```
+for (position = 0; position < name.length; position++) {
+    console.log(name[position]) ;
+}
+```
 
 #### Prototype members
 
   - Prefix private members with `_`
-  ```javascript
-  Example.prototype.method = function () {
 
-      this.public = 'external';
-      this._private = 'internal';
-  };
-  ```
+```javascript
+Example.prototype.method = function () {
+
+    this.public = 'external';
+    this._private = 'internal';
+};
+```
 
   - Define `self` for passing `this` into nested functions
-  ```javascript
-  Example.prototype.method = function () {
 
-      var self = this;
+```javascript
+Example.prototype.method = function () {
 
-      call(123, function (err) {
+    var self = this;
 
-          self.display(err);
-      });
-  };
-  ```
+    call(123, function (err) {
+
+        self.display(err);
+    });
+};
+```
 
 #### Function declaration
 
   - Prefer function declarations over function assignments
-  ``` javascript
-  // Prefer declaration when possible
+``` javascript
+// Prefer declaration when possible
 
-  function myFunction() {
+function myFunction() {
 
-  }
+}
 
-  // Use assignment where it makes sense
+// Use assignment where it makes sense
 
-  module.exports = function myFunction () {
+module.exports = function myFunction () {
 
-  };
-  ```
+};
+```
 
 #### Enforcing new on Constructor
 
   - Use `this instanceof` to check if a constructor function was called with new. (This allows for future prototypical inheritance.)
 
-  ```javascript
-  expect(this instanceof Server).toEqual(true);
-  ```
+```javascript
+expect(this instanceof Server).toEqual(true);
+```
 
 ### Style
 
@@ -126,36 +130,37 @@
   - 4 spaces indents
   - No trailing whitespace at end-of-line
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  if (test) {
-      if (value === 12) {
-          console.log('result');
-      }
-  }
-
-  // Wrong
-
-  if (test) {
+if (test) {
     if (value === 12) {
-      console.log('result');
+        console.log('result');
     }
+}
+
+// Wrong
+
+if (test) {
+  if (value === 12) {
+    console.log('result');
   }
-  ```
+}
+```
 
 #### String literals
 
   - Use `'` for strings which are used for internal logic and `"` for strings which are exposed to the user.
-  ```javascript
-  // Right
-  var key = 'someKey',
-      message = "message for the user";
 
-  // Wrong
-  var key = "someKey",
-      message = 'message for the user';
-  ```
+```javascript
+// Right
+var key = 'someKey',
+    message = "message for the user";
+
+// Wrong
+var key = "someKey",
+    message = 'message for the user';
+```
 
 #### Newlines
 
@@ -165,341 +170,355 @@
     - Inline an object when it improves readability and unlikely to change often
     - No inline object in assignment unless empty
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  if (condition) {
-      execute(value, { strict: true });
-  }
+if (condition) {
+    execute(value, { strict: true });
+}
 
-  if (condition) {
-      var options = {
-          strict: true
-      };
-      execute(value, options);
-  }
+if (condition) {
+    var options = {
+        strict: true
+    };
+    execute(value, options);
+}
 
-  var empty = {};
+var empty = {};
 
-  // Wrong
+// Wrong
 
-  if (condition) { execute(value, { strict: true }); }
+if (condition) { execute(value, { strict: true }); }
 
-  if (condition) {
-      var options = { strict: true };
-      execute(value, options);
-  }
+if (condition) {
+    var options = { strict: true };
+    execute(value, options);
+}
 
-  var empty = {
-  };
-  ```
+var empty = {
+};
+```
 
   - Newline after `}`
     - Only exception is when followed by `,`, `;`, `);` which must be followed by a newline
     - Includes before `else`, `catch`, etc.
     - Empty line after `}` if not last statement in scope
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  if (condition) {
-      value = {
-          func: function () {
-              console.log('example');
-          },
-          message: 'hello'
-      };
-      execute(value, function (err) {
-          console.log(err);
-      });
-  }
-  else {
-      console.log('otherwise');
-  }
+if (condition) {
+    value = {
+        func: function () {
+            console.log('example');
+        },
+        message: 'hello'
+    };
+    execute(value, function (err) {
+        console.log(err);
+    });
+}
+else {
+    console.log('otherwise');
+}
 
-  // Wrong
+// Wrong
 
-  if (condition) {
-      value = {
-          func: function () {
-              console.log('example');
-          }, message: 'hello'
-      };
-      execute(value, function (err) {
-          console.log(err); }
-      );
-  } else {
-      console.log('otherwise');
-  }
-  ```
+if (condition) {
+    value = {
+        func: function () {
+            console.log('example');
+        }, message: 'hello'
+    };
+    execute(value, function (err) {
+        console.log(err); }
+    );
+} else {
+    console.log('otherwise');
+}
+```
 
   - No empty line before end of scope
-  ```javascript
-  // Right
 
-  if (condition) {
-      if (otherCondition) {
-          console.log('done');
-      }
-  }
+```javascript
+// Right
 
-  // Wrong
+if (condition) {
+    if (otherCondition) {
+        console.log('done');
+    }
+}
 
-  if (condition) {
-      if (otherCondition) {
-          console.log('done');
+// Wrong
 
-      }
+if (condition) {
+    if (otherCondition) {
+        console.log('done');
 
-  }
-  ```
+    }
+
+}
+```
 
 #### Spaces
 
   - Use one and only one space (when required)
-  ```javascript
-  // Right
-  var value = calculate(1, 3);
 
-  // Wrong
-  var  value =  calculate(1,  3);
-  ```
+```javascript
+// Right
+var value = calculate(1, 3);
+
+// Wrong
+var  value =  calculate(1,  3);
+```
 
   - One space between function and `(` when assigning a function
-  ```javascript
-  // Right
 
-  var example = function () {
-      return value;
-  };
+```javascript
+// Right
 
-  // Wrong
+var example = function () {
+    return value;
+};
 
-  var example = function() {
-      return value;
-  };
-  ```
+// Wrong
+
+var example = function() {
+    return value;
+};
+```
 
   - No space between function and `(` when declaring a function
-  ```javascript
-  // Right
 
-  function example() {
-      return value;
-  };
+```javascript
+// Right
 
-  // Wrong
+function example() {
+    return value;
+};
 
-  function example () {
-      return value;
-  };
-  ```
+// Wrong
+
+function example () {
+    return value;
+};
+```
 
   - No space between function name and `(` when invoking a function
-  ```javascript
-  // Right
 
-  var key = example();
+```javascript
+// Right
 
-  // Wrong
+var key = example();
 
-  var key = example ();
-  ```
+// Wrong
+
+var key = example ();
+```
 
   - No space after `(` or before `)`
-   ```javascript
-  // Right
 
-  execute('order', 34);
+```javascript
+// Right
 
-  if (result === 'ok') {
-      console.log('success');
-  }
+execute('order', 34);
 
-  // Wrong
+if (result === 'ok') {
+    console.log('success');
+}
 
-  execute( 'order', 34 );
+// Wrong
 
-  if ( result === 'ok' ) {
-      console.log( 'success' );
-  }
-  ```
+execute( 'order', 34 );
 
-  - No space before object key `:`, always after object key `:`
-  ```javascript
-  // Right
+if ( result === 'ok' ) {
+    console.log( 'success' );
+}
+`
 
-  var obj = {
-      a: 1,
-      b: 2,
-      c: 3
-  };
+- No space before object key `:`, always after object key `:`
 
-  // Wrong
+```javascript
+// Right
 
-  var obj = {
-      a : 1,
-      b :2,
-      c:3
-  };
-  ```
+var obj = {
+    a: 1,
+    b: 2,
+    c: 3
+};
 
-  - No space before `;`, always after `;` if not end-of-line
-  ```javascript
-  // Right
+// Wrong
 
-  var name = 'john';
+var obj = {
+    a : 1,
+    b :2,
+    c:3
+};
+`
 
-  for (var i = 0, il = name.length; i < il; ++i) {
-      console.log(name[i]);
-  }
+- No space before `;`, always after `;` if not end-of-line
 
-  // Wrong
+```javascript
+// Right
 
-  var name = 'john' ;
+var name = 'john';
 
-  for (var i = 0, il = name.length;i < il ;++i) {
-      console.log(name[i]) ;
-  }
-  ```
+for (var i = 0, il = name.length; i < il; ++i) {
+    console.log(name[i]);
+}
 
-  - Always space after reserved keywords (`if`, `else`, `for`, `return`, `function`, etc.)
-  ```javascript
-  // Right
+// Wrong
 
-  for (var book in books) {
-      if (books.hasOwnProperty(book)) {
-          console.log(book.name);
-      }
-  }
+var name = 'john' ;
 
-  // Wrong
+for (var i = 0, il = name.length;i < il ;++i) {
+    console.log(name[i]) ;
+}
+`
 
-  for(var book in books) {
-      if(books.hasOwnProperty(book)) {
-          console.log(book.name);
-      }
-  }
-  ```
+- Always space after reserved keywords (`if`, `else`, `for`, `return`, `function`, etc.)
+
+```javascript
+// Right
+
+for (var book in books) {
+    if (books.hasOwnProperty(book)) {
+        console.log(book.name);
+    }
+}
+
+// Wrong
+
+for(var book in books) {
+    if(books.hasOwnProperty(book)) {
+        console.log(book.name);
+    }
+}
+```
 
   - Always space after `{` and before `}` in inlined object
     - No space for empty objects `{}`
     - No space for empty functions `{}`
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  var user = { name: 'john', email: 'john@example.com' };
-  var empty = {};
-  var callback = function () {};
+var user = { name: 'john', email: 'john@example.com' };
+var empty = {};
+var callback = function () {};
 
-  // Wrong
+// Wrong
 
-  var user = {name: 'john', email: 'john@example.com'};
-  var empty = {  };
-  var callback = function () { };
-  ```
+var user = {name: 'john', email: 'john@example.com'};
+var empty = {  };
+var callback = function () { };
+```
 
   - No space after `[` and before `]` in inlined arrays
-  ```javascript
-  // Right
-  var numbers = [1, 2, 3];
 
-  // Wrong
-  var numbers = [ 1, 2, 3 ];
-  ```
+```javascript
+// Right
+var numbers = [1, 2, 3];
+
+// Wrong
+var numbers = [ 1, 2, 3 ];
+```
 
   - Always space after `//`
-  ```javascript
-  // Right
-  // Some comment
 
-  // Wrong
-  //Some comment
-  ```
+```javascript
+// Right
+// Some comment
+
+// Wrong
+//Some comment
+```
 
   - No space before `,`, always after `,` unless end-of-line
-  ```javascript
-  // Right
 
-  var numbers = [1, 2, 3];
-  var user = { name: 'john', email: 'john@example.com' };
+```javascript
+// Right
 
-  for (var i = 0, il = name.length; i < il; ++i) {
-      console.log(name[i]);
-  }
+var numbers = [1, 2, 3];
+var user = { name: 'john', email: 'john@example.com' };
 
-  // Wrong
+for (var i = 0, il = name.length; i < il; ++i) {
+    console.log(name[i]);
+}
 
-  var numbers = [1,2 ,3];
-  var user = { name: 'john',email: 'john@example.com' };
+// Wrong
 
-  for (var i = 0,il = name.length; i < il; ++i) {
-      console.log(name[i]);
-  }
-  ```
+var numbers = [1,2 ,3];
+var user = { name: 'john',email: 'john@example.com' };
+
+for (var i = 0,il = name.length; i < il; ++i) {
+    console.log(name[i]);
+}
+```
 
   - Always space before and after operators, unless following an indent or end-of-line
 
-  ```javascript
-  // Right
+```javascript
+// Right
 
-  var a = 1 + 3;
-  var b = 'john' +
-          ' ' +
-          'doe';
-
-  // Wrong
-
-  var a=1+3;
-  var b='john'+
-        ' '+
+var a = 1 + 3;
+var b = 'john' +
+        ' ' +
         'doe';
-  ```
+
+// Wrong
+
+var a=1+3;
+var b='john'+
+      ' '+
+      'doe';
+```
 
 #### Commas
 
   - Never begin a line with `,` (always at the end of the previous line)
-  ```javascript
-  // Right
-  execute('some error message',
-          12345,
-          this);
 
-  // Wrong
-  execute('some error message'
-          ,12345
-          ,this);
-  ```
+```javascript
+// Right
+execute('some error message',
+        12345,
+        this);
+
+// Wrong
+execute('some error message'
+        ,12345
+        ,this);
+```
 
 #### Operators
 
   - Never begin a line with an operator (always at the end of the previous line)
-  ```javascript
-  // Right
 
-  var message = 'Hello ' +
-                'Steve, ' +
-                'How are you?';
+```javascript
+// Right
 
-  if (value === 'hello' &&
-      result === 'ok') {
+var message = 'Hello ' +
+              'Steve, ' +
+              'How are you?';
 
-      console.log('yes');
-  }
+if (value === 'hello' &&
+    result === 'ok') {
 
-  // Wrong
+    console.log('yes');
+}
 
-  var message = 'Hello '
-                + 'Steve, '
-                + 'How are you?';
+// Wrong
 
-  if (value === 'hello'
-      && result === 'ok') {
+var message = 'Hello '
+              + 'Steve, '
+              + 'How are you?';
 
-      console.log('yes');
-  }
-  ```
+if (value === 'hello'
+    && result === 'ok') {
+
+    console.log('yes');
+}
+```
 
 #### Comments
 
@@ -516,55 +535,55 @@
     - One empty line before and none after the comment line
     - No empty line before when following `{` unless other rules require it
 
-  ```javascript
-  function execute() {
+```javascript
+function execute() {
 
-      // Initialize state
-      var position = 0;
+    // Initialize state
+    var position = 0;
 
-      if (condition) {
-          // Return message
-          return 'hello';
-      }
-  }
-  ```
+    if (condition) {
+        // Return message
+        return 'hello';
+    }
+}
+```
 
   - Segment
     - Provides narrative for the following code section (one or more lines of code, with or without line breaks)
     - One or more lines of comments
     - One empty line before and one after comments block
 
-  ```javascript
-  function execute() {
+```javascript
+function execute() {
 
-      // Print each book's name
+    // Print each book's name
 
-      for (var book in books) {
+    for (var book in books) {
 
-          // Check for valid properties
+        // Check for valid properties
 
-          if (books.hasOwnProperty(book)) {
-              console.log(book.name);
-          }
-      }
-  }
-  ```
+        if (books.hasOwnProperty(book)) {
+            console.log(book.name);
+        }
+    }
+}
+```
 
   - Note
     - Explains the behaviour of a single code statement (can be broken into multiple lines)
     - Used to document unexpected behaviour or non-standard practice
     - Appears immediately at the end of the line (or statement) it describes, following whitespace to separate it from code block
 
-  ```javascript
-  function execute(value) {
+```javascript
+function execute(value) {
 
-      if (value !== null &&
-          value !== undefined) {      // Explicit check as 'value' can be 0
+    if (value !== null &&
+        value !== undefined) {      // Explicit check as 'value' can be 0
 
-          console.log(value);
-      }
-  }
-  ```
+        console.log(value);
+    }
+}
+```
 
 #### Multi-line statements
 
@@ -575,20 +594,21 @@
 
   - Conditions should be indented to the first character of the condition in the first line
 
-  ```javascript
-  if (result &&
-      result.status &&
-      result.status.statusCode === 200) {
+```javascript
+if (result &&
+    result.status &&
+    result.status.statusCode === 200) {
 
-      console.log('success');
-  }
-  ```
+    console.log('success');
+}
+```
 
   - Variable should be indented to the first character of the value in the first line
-  ```javascript
-  var message = 'hello' +
-                ' and welcome';
-  ```
+
+```javascript
+var message = 'hello' +
+              ' and welcome';
+```
 
 ## Node
 
