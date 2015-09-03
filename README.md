@@ -56,3 +56,7 @@ vim env.json
 Edit `env.json` howevee you'd like ... config in env.json will be assigned to the default config, overriding any existing properties. `env.json` file is ignored by git.
 
 Note: It is on the roadmap to tie this all back into the new central config repositories.
+
+## Contribute
+
+Please refer to [CONTRIBUTING.md](http://git.cars.com/projects/MP/repos/nox/browse/CONTRIBUTING.md)
